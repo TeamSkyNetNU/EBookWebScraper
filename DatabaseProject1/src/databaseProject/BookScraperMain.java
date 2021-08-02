@@ -10,10 +10,10 @@ public class BookScraperMain
 {
     public static void main(String[] args) throws ClassNotFoundException, SQLException
     {
+    	UserInterface userInterface = new UserInterface();
     	BookDisplayData displayBookData = new BookDisplayData();
-    	DatabaseDriver databaseDriver = new DatabaseDriver();
 
+    	userInterface.beginProgram();
     	displayBookData.displayBooks();
-        databaseDriver.createConnection();
     }
 }

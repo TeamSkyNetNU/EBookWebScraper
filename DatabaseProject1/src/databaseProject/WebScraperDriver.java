@@ -11,123 +11,164 @@ import org.jsoup.select.Elements;
 
 /*
  * 
- *	This class scrapes the online book retailers for book data.
+ *	This class extracts book data from the top online book retailers.
  */
 public class WebScraperDriver
 {
-	private static final String EBAY_BOOKS = 
-			"https://www.ebay.com/b/Books/261186/bn_16566585";
-	private static final String BARNES_NOBLE_BOOKS = 
-			"https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8";
-	private static final String AMAZON_BOOKS = "https://www.amazon.com/books-used-books-textbooks/b/" +
-			"?ie=UTF8&node=283155&ref_=nav_cs_books_2ed85a0fb54a4598ba909c22690d166e";
-	private static String PRODUCT_CARD_CLASS = ""; 
+	public static final String EBAY_BOOKS = "https://www.ebay.com/b/Books/261186/bn_16566585";
+	public static final String BARNES_NOBLE_BOOKS = "https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8";
+	public static final String AMAZON_BOOKS = "https://www.amazon.com/books-used-books-textbooks/b/"
+			+ "?ie=UTF8&node=283155&ref_=nav_cs_books_2ed85a0fb54a4598ba909c22690d166e";
+	private static String PRODUCT_CARD_CLASS = "";
 	private static String PRODUCT_TITLE_CLASS = "";
 	private static String PRODUCT_PRICE_SELECTOR = "";
-	private ArrayList<String> onlineBookVendorList = new ArrayList<>();
+	
+	private String website = "";
+
+	private ArrayList<String> onlineBookSiteList = new ArrayList<>();
 
 	void onlineBookVendorFactory()
 	{
-		onlineBookVendorList.add(BARNES_NOBLE_BOOKS);
-		onlineBookVendorList.add(EBAY_BOOKS);
-		onlineBookVendorList.add(AMAZON_BOOKS);
+		onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
+		onlineBookSiteList.add(EBAY_BOOKS);
+		onlineBookSiteList.add(AMAZON_BOOKS);
 	}
 
 	public List<BookProperties> extractProducts()
 	{
 		List<BookProperties> books = new ArrayList<>();
 
-		onlineBookVendorFactory();
+//		onlineBookVendorFactory();
 
 		int count = 0;
 		Document doc;
 
-		for (String website : onlineBookVendorList)
+		website = verifySite(website);
+		verifySiteTables(website);
+
+		try
 		{
-			try
-			{
-				doc = Jsoup.connect(website).get();
-			} catch (IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-
-			PRODUCT_CARD_CLASS = verifyProductCard(website);
-			Elements productElements = doc.getElementsByClass(PRODUCT_CARD_CLASS);
-			for (Element productElement : productElements)
-			{
-				BookProperties bookListing = new BookProperties();
-				
-				PRODUCT_TITLE_CLASS = verifyProductTitle(website);
-				Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
-				if (!titleElements.isEmpty())
-				{
-					bookListing.setTitle(titleElements.get(0).text());
-				}
-
-				PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
-				Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
-				if (!priceElements.isEmpty())
-				{
-					bookListing.setFormattedPrice(priceElements.get(0).text());
-				}
-
-				count++;
-				bookListing.setId(count);
-
-				books.add(bookListing);
-			}
+			doc = Jsoup.connect(website).get();
+		} catch (IOException e)
+		{
+			throw new RuntimeException(e);
 		}
+
+		PRODUCT_CARD_CLASS = verifyProductCard(website);
+		Elements productElements = doc.getElementsByClass(PRODUCT_CARD_CLASS);
+		for (Element productElement : productElements)
+		{
+			BookProperties bookListing = new BookProperties();
+
+			PRODUCT_TITLE_CLASS = verifyProductTitle(website);
+			Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
+			if (!titleElements.isEmpty())
+			{
+				bookListing.setTitle(titleElements.get(0).text());
+			}
+
+			PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
+			Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
+			if (!priceElements.isEmpty())
+			{
+				bookListing.setFormattedPrice(priceElements.get(0).text());
+			}
+
+			count++;
+			bookListing.setId(count);
+
+			books.add(bookListing);
+		}
+//		}
 		return books;
+	}
+
+	private String verifySite(String website)
+	{
+		if (UserInterface.selection == 1)
+		{
+			website = AMAZON_BOOKS;
+		}
+		if (UserInterface.selection == 2)
+		{
+			website = BARNES_NOBLE_BOOKS;
+		}
+		if (UserInterface.selection == 3)
+		{
+			website = EBAY_BOOKS;
+		}
+		return website;
+	}
+
+	private void verifySiteTables(String website)
+	{
+		if (website.contentEquals(WebScraperDriver.AMAZON_BOOKS))
+		{
+			DatabaseOperations.SQL_DROP_TABLE = DatabaseOperations.SQL_DROP_AMAZON;
+			DatabaseOperations.SQL_CREATE_TABLE = DatabaseOperations.AMAZON_CREATE_QUERY;
+			DatabaseOperations.SQL_INSERT = DatabaseOperations.SQL_INSERT_AMAZON;
+		}
+		if (website.contentEquals(WebScraperDriver.BARNES_NOBLE_BOOKS))
+		{
+			DatabaseOperations.SQL_DROP_TABLE = DatabaseOperations.SQL_DROP_BARNES;
+			DatabaseOperations.SQL_CREATE_TABLE = DatabaseOperations.BARNES_CREATE_QUERY;
+			DatabaseOperations.SQL_INSERT = DatabaseOperations.SQL_INSERT_BARNES;
+		}
+		if (website.contentEquals(WebScraperDriver.EBAY_BOOKS))
+		{
+			DatabaseOperations.SQL_DROP_TABLE = DatabaseOperations.SQL_DROP_EBAY;
+			DatabaseOperations.SQL_CREATE_TABLE = DatabaseOperations.EBAY_CREATE_QUERY;
+			DatabaseOperations.SQL_INSERT = DatabaseOperations.SQL_INSERT_EBAY;
+		}
 	}
 
 	private String verifyProductCard(String website)
 	{
-		if (website.matches(EBAY_BOOKS))
-		{
-			PRODUCT_CARD_CLASS = "b-info";
-		}
-		if (website.matches(BARNES_NOBLE_BOOKS))
-		{
-			PRODUCT_CARD_CLASS = "product-info-view";
-		}
-		if (website.matches(AMAZON_BOOKS))
+		if (website.contentEquals(AMAZON_BOOKS))
 		{
 			PRODUCT_CARD_CLASS = "acs-product-block";
 		}
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
+			PRODUCT_CARD_CLASS = "product-info-view";
+		}
+		if (website.contentEquals(EBAY_BOOKS))
+		{
+			PRODUCT_CARD_CLASS = "b-info";
+		}
 		return PRODUCT_CARD_CLASS;
 	}
-	
+
 	private String verifyProductTitle(String website)
 	{
-		if (website.matches(EBAY_BOOKS))
-		{
-			PRODUCT_TITLE_CLASS = "b-info__title ";
-		}
-		if (website.matches(BARNES_NOBLE_BOOKS))
-		{
-			PRODUCT_TITLE_CLASS = " ";
-		}
-		if (website.matches(AMAZON_BOOKS))
+		if (website.contentEquals(AMAZON_BOOKS))
 		{
 			PRODUCT_TITLE_CLASS = "a-truncate-full";
 		}
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
+			PRODUCT_TITLE_CLASS = " ";
+		}
+		if (website.contentEquals(EBAY_BOOKS))
+		{
+			PRODUCT_TITLE_CLASS = "b-info__title ";
+		}
 		return PRODUCT_TITLE_CLASS;
 	}
-	
+
 	private String verifyProductPrice(String website)
 	{
-		if (website.contains(EBAY_BOOKS))
+		if (website.contentEquals(AMAZON_BOOKS))
 		{
-			PRODUCT_PRICE_SELECTOR = "b-info__trendprice";
+			PRODUCT_PRICE_SELECTOR = "a-offscreen";
 		}
-		if (website.contains(BARNES_NOBLE_BOOKS))
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
 		{
 			PRODUCT_PRICE_SELECTOR = " current link";
 		}
-		if (website.contains(AMAZON_BOOKS))
+		if (website.contentEquals(EBAY_BOOKS))
 		{
-			PRODUCT_PRICE_SELECTOR = "a-offscreen"; 
+			PRODUCT_PRICE_SELECTOR = "b-info__trendprice";
 		}
 		return PRODUCT_PRICE_SELECTOR;
 	}

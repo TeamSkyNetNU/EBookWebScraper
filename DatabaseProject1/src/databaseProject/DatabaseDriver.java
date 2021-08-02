@@ -13,17 +13,11 @@ import java.util.List;
  */
 public class DatabaseDriver
 {
-	private String sqlInsert = "INSERT INTO inventory (Id, Title, Price) VALUES (?,?,?)";
-	private String sqlDrop = "DROP TABLE IF EXISTS inventory";
-	private String sqlCreate = "CREATE TABLE inventory "
-			+ "(Id INT NOT NULL, " 
-			+ "Title VARCHAR(1000) NULL," 
-			+ "Price VARCHAR(45) NULL, "
-			+ "PRIMARY KEY ( Id ))";
+	WebScraperDriver webScraper = new WebScraperDriver();
+	DatabaseOperations databaseOperations = new DatabaseOperations();
 	
 	void createConnection() throws ClassNotFoundException, SQLException
 	{
-		WebScraperDriver webScraper = new WebScraperDriver();
 		List<BookProperties> products = webScraper.extractProducts();
 		
 		try
@@ -36,13 +30,13 @@ public class DatabaseDriver
 						
 			Statement statement = connection.createStatement();
 			
-			statement.execute(sqlDrop);
+			statement.execute(DatabaseOperations.SQL_DROP_TABLE);
 			System.out.println("Table dropped");
 						
-			statement.executeUpdate(sqlCreate);
+			statement.executeUpdate(DatabaseOperations.SQL_CREATE_TABLE);
 			System.out.println("Table and columns created");
 			
-			PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
+			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseOperations.SQL_INSERT);
 			for (BookProperties product : products)
 			{
 				preparedStatement.setInt (1, product.getId());
