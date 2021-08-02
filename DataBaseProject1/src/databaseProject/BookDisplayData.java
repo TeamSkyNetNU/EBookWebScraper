@@ -6,7 +6,7 @@ import java.util.List;
  * 
  *	This class contains the methods that allow the user to view book data.
  */
-public class BookDisplayData 
+public class BookDisplayData
 {
 	void displayBooks()
 	{
