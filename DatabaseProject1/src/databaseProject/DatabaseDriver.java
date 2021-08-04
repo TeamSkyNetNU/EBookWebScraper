@@ -95,8 +95,4 @@ public class DatabaseDriver
 			System.out.println("Database updated");
 		}
 	}
-	
-	
-	
-	
 }
