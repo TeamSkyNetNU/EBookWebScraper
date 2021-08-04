@@ -22,34 +22,31 @@ public class WebScraperDriver
 	private static String PRODUCT_CARD_CLASS = "";
 	private static String PRODUCT_TITLE_CLASS = "";
 	private static String PRODUCT_PRICE_SELECTOR = "";
-	
-	private String website = "";
 
-	private ArrayList<String> onlineBookSiteList = new ArrayList<>();
-
-	void onlineBookVendorFactory()
-	{
-		onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
-		onlineBookSiteList.add(EBAY_BOOKS);
-		onlineBookSiteList.add(AMAZON_BOOKS);
-	}
-
-	public List<BookProperties> extractProducts()
+	/*
+	 *  This method extracts the books and their information from scraping the site for data.
+	 *  If option 4 (scrape all sites) is not selected then it will verify each site selection
+	 *  to ensure the right card class, title class, and price selector strings are being parsed.
+	 * 
+	 */
+	public List<BookProperties> extractProducts(String website)
 	{
 		List<BookProperties> books = new ArrayList<>();
-
-//		onlineBookVendorFactory();
 
 		int count = 0;
 		Document doc;
 
-		website = verifySite(website);
-		verifySiteTables(website);
+		if (UserInterface.selection != 4)
+		{
+			website = verifySite(website);
+			verifySiteTables(website);
+		}
 
 		try
 		{
 			doc = Jsoup.connect(website).get();
-		} catch (IOException e)
+		} 
+		catch (IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -79,7 +76,7 @@ public class WebScraperDriver
 
 			books.add(bookListing);
 		}
-//		}
+
 		return books;
 	}
 

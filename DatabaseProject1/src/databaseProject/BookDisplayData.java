@@ -10,8 +10,10 @@ public class BookDisplayData
 {
 	void displayBooks()
 	{
+		String website = "";
+		
 		WebScraperDriver webScraper = new WebScraperDriver();
-		List<BookProperties> products = webScraper.extractProducts();
+		List<BookProperties> products = webScraper.extractProducts(website);
 		
 	    for (BookProperties product : products) 
         {
