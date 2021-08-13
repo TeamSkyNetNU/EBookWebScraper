@@ -59,7 +59,7 @@ public class DatabaseDriver
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "student", "student");
 
 			Statement statement = connection.createStatement();
 			

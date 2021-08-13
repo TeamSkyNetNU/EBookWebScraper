@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.UserInterfaceController">
+   <center>
+      <ScrollPane prefHeight="550.0" prefWidth="730.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="730.0">
+               <children>
+                  <ListView fx:id="dataListView" layoutX="6.0" prefHeight="533.0" prefWidth="707.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </center>
+   <left>
+      <VBox alignment="CENTER" prefHeight="550.0" prefWidth="170.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="showDataButton" mnemonicParsing="false" text="Show Data">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="100.0">
+               <children>
+                  <CheckBox fx:id="amazonCheckBox" mnemonicParsing="false" text="Amazon Books">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="ebayCheckBox" mnemonicParsing="false" text="Ebay Books">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="barnesCheckBox" mnemonicParsing="false" text="Barnes &amp; Noble">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
