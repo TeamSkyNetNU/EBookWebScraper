@@ -15,9 +15,9 @@ public class BookScraperMain extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		Parent root = FXMLLoader.load(getClass().getResource("loginScene/LoginScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/LoginScene.fxml"));
 		primaryStage.setTitle("Ebook WebScraper");
-		primaryStage.setScene(new Scene(root, 900, 550));
+		primaryStage.setScene(new Scene(root, 600, 400));
 		primaryStage.show();
 	}
 	
