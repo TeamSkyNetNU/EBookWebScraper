@@ -13,7 +13,7 @@ public class UserInterface
 	BookDisplayData displayBookData = new BookDisplayData();
 	DatabaseDriver databaseDriver = new DatabaseDriver();
 	
-	static int selection;
+	static int selection = 1;
 	
 	void beginProgram() throws ClassNotFoundException, SQLException
 	{
