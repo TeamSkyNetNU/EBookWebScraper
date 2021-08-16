@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" stylesheets="@MainScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.MainSceneController">
+   <top>
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" styleClass="menuBar" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu fx:id="dataMenuButton" mnemonicParsing="false" styleClass="menuText" text="Website Data">
+               <items>
+                  <MenuItem fx:id="loadDataStageButton" mnemonicParsing="false" onAction="#loadDataStage" styleClass="menuItem" text="Load Website Data Screen" />
+               </items>
+            </Menu>
+            <Menu fx:id="marketMenuButton" mnemonicParsing="false" styleClass="menuText" text="Market Analysis">
+               <items>
+                  <MenuItem fx:id="loadMarketStageButton" mnemonicParsing="false" onAction="#loadMarketStage" styleClass="menuItem" text="Load Market Analysis Screen" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

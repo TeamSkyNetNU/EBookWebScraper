@@ -11,9 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
@@ -23,7 +25,16 @@ public class UserInterfaceController implements Initializable {
     private BorderPane rootPane;
 
     @FXML
-    private ListView<String> dataListView;
+    private TableView<BookProperties> tableView;
+    
+    @FXML
+    private TableColumn<BookProperties, Integer> idColumn;
+    
+    @FXML
+    private TableColumn<BookProperties, String> nameColumn;
+    
+    @FXML
+    private TableColumn<BookProperties, String> priceColumn;
 
     @FXML
     private Button showDataButton;
@@ -40,32 +51,37 @@ public class UserInterfaceController implements Initializable {
     @FXML
     private ToggleGroup websiteToggleGroup;
     
-    private ObservableList<String> bookData = FXCollections.observableArrayList();
-    private BookDisplayData bookDisplayData;
-    private List<BookProperties> bookList;
-    
     @FXML
     void showData(ActionEvent event) throws ClassNotFoundException, SQLException {
     	//bookData.clear();
+    	/*
 		bookDisplayData = new BookDisplayData();
 		bookList = (List<BookProperties>) bookDisplayData.displayBooks();
 		for (BookProperties product : bookList) {
 			bookData.add(String.format("Product:\n%s\n%s\n", product.getTitle(), 
 		        		product.getFormattedPrice()));
 		}
+		*/
+    	
+    	tableView.setItems(getBookData());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	dataListView.setItems(bookData);
+    	//dataListView.setItems(bookData);
     	//rootPane.setOpacity(0);
-    	makeFadeInTransition();
+    	//makeFadeInTransition();
+    	
+    	idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
+    	nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
+    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("formattedPrice"));
     	
     	amazonRadioButton.setUserData(1);
     	ebayRadioButton.setUserData(2);
     	barnesRadioButton.setUserData(3);
     }
     
+    /*
     private void makeFadeInTransition() {
     	FadeTransition fadeTransition = new FadeTransition();
     	fadeTransition.setDuration(Duration.millis(250));
@@ -74,10 +90,26 @@ public class UserInterfaceController implements Initializable {
     	fadeTransition.setToValue(1);
     	fadeTransition.play();
     }
+    */
     
     @FXML
     private void radioButtonSelected(ActionEvent e) {
     	UserInterface.selection = (int) websiteToggleGroup.getSelectedToggle().getUserData();
+    }
+    
+    private ObservableList<BookProperties> getBookData() {
+    	ObservableList<BookProperties> bookData = FXCollections.observableArrayList();
+    	
+    	String website = "";
+		
+		WebScraperDriver webScraper = new WebScraperDriver();
+		List<BookProperties> products = webScraper.extractProducts(website);
+	
+	    for (BookProperties product : products) {
+	    	bookData.add(product);
+        }
+    	
+    	return bookData;
     }
 
 }

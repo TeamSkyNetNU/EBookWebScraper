@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ public class LoginSceneController {
     private TextField usernameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
 
     @FXML
     private Button loginButton;
@@ -49,7 +50,7 @@ public class LoginSceneController {
     private void loadNextScene() {
     	try {
 	    	Parent secondView;
-	    	secondView = (BorderPane) FXMLLoader.load(getClass().getResource("/UserInterface.fxml"));
+	    	secondView = (BorderPane) FXMLLoader.load(getClass().getResource("/MainScene.fxml"));
 	    	Scene newScene = new Scene(secondView);
 	    	Stage curStage = (Stage) rootPane.getScene().getWindow();
 	    	curStage.setScene(newScene);

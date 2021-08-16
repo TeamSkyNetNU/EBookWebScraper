@@ -1,0 +1,21 @@
+.menuBar {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, rgb(8, 151, 247), rgb(177, 217, 255));
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.menu .label {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 5, 5);
+    -fx-font-size: 16px;
+}
+
+.menuItem .label{
+    -fx-text-fill: #000;
+    -fx-font-size: 12px;
+}
+
+.menuItem .label:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: rgb(255, 73, 73);
+    -fx-opacity: 0.5;
+}
