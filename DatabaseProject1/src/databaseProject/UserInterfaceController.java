@@ -4,7 +4,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +16,24 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Duration;
 
 public class UserInterfaceController implements Initializable {
+	
+	private enum WebsiteChoice {
+		AMAZON(1),
+		EBAY(2),
+		BARNES(3);
+		
+		private final int siteNum;
+
+		WebsiteChoice(int siteNum) {
+			this.siteNum = siteNum;
+		}
+		
+		public int getSiteNum() {
+			return siteNum;
+		}
+	}
 
     @FXML
     private BorderPane rootPane;
@@ -53,48 +67,25 @@ public class UserInterfaceController implements Initializable {
     
     @FXML
     void showData(ActionEvent event) throws ClassNotFoundException, SQLException {
-    	//bookData.clear();
-    	/*
-		bookDisplayData = new BookDisplayData();
-		bookList = (List<BookProperties>) bookDisplayData.displayBooks();
-		for (BookProperties product : bookList) {
-			bookData.add(String.format("Product:\n%s\n%s\n", product.getTitle(), 
-		        		product.getFormattedPrice()));
-		}
-		*/
-    	
     	tableView.setItems(getBookData());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	//dataListView.setItems(bookData);
-    	//rootPane.setOpacity(0);
-    	//makeFadeInTransition();
     	
     	idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
     	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("formattedPrice"));
     	
-    	amazonRadioButton.setUserData(1);
-    	ebayRadioButton.setUserData(2);
-    	barnesRadioButton.setUserData(3);
+    	amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
+    	ebayRadioButton.setUserData(WebsiteChoice.EBAY);
+    	barnesRadioButton.setUserData(WebsiteChoice.BARNES);
     }
-    
-    /*
-    private void makeFadeInTransition() {
-    	FadeTransition fadeTransition = new FadeTransition();
-    	fadeTransition.setDuration(Duration.millis(250));
-    	fadeTransition.setNode(rootPane);
-    	fadeTransition.setFromValue(0);
-    	fadeTransition.setToValue(1);
-    	fadeTransition.play();
-    }
-    */
     
     @FXML
     private void radioButtonSelected(ActionEvent e) {
-    	UserInterface.selection = (int) websiteToggleGroup.getSelectedToggle().getUserData();
+    	WebsiteChoice choice = (WebsiteChoice) websiteToggleGroup.getSelectedToggle().getUserData();
+    	UserInterface.selection = choice.getSiteNum();
     }
     
     private ObservableList<BookProperties> getBookData() {
@@ -111,5 +102,4 @@ public class UserInterfaceController implements Initializable {
     	
     	return bookData;
     }
-
 }

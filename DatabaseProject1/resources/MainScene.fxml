@@ -9,7 +9,7 @@
    <top>
       <MenuBar maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" styleClass="menuBar" BorderPane.alignment="CENTER">
          <menus>
-            <Menu fx:id="dataMenuButton" mnemonicParsing="false" styleClass="menuText" text="Website Data">
+            <Menu fx:id="dataMenuButton" mnemonicParsing="false" styleClass="menuText" text="View Database">
                <items>
                   <MenuItem fx:id="loadDataStageButton" mnemonicParsing="false" onAction="#loadDataStage" styleClass="menuItem" text="Load Website Data Screen" />
                </items>
