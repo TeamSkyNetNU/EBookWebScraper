@@ -6,14 +6,16 @@ import java.sql.SQLException;
  * 
  * 	This class contains the main method that runs the Ebook Webscraper.
  */
-public class BookScraperMain 
+public class BookScraperMain
 {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException
-    {
-    	BookDisplayData displayBookData = new BookDisplayData();
-    	DatabaseDriver databaseDriver = new DatabaseDriver();
+	public static void main(String[] args) throws ClassNotFoundException, SQLException
+	{
 
-    	displayBookData.displayBooks();
-        databaseDriver.createConnection();
-    }
+		
+    	UserInterface userInterface = new UserInterface();
+//		BookMarketAnalysis bookMarketAnalysis = new BookMarketAnalysis();
+//
+//    	userInterface.beginProgram();
+//		bookMarketAnalysis.getLowestPrice();
+	}
 }
