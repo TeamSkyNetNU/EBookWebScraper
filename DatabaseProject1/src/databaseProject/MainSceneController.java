@@ -47,7 +47,9 @@ public class MainSceneController implements Initializable {
 	
     @FXML
     private void loadMarketStage(ActionEvent event) {
-    	
+    	FxmlLoader object = new FxmlLoader();
+    	BorderPane view = object.getPage("MarketAnalysisScene");
+    	rootPane.setCenter(view);
     }
 	
     @FXML

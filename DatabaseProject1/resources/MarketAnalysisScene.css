@@ -1,0 +1,47 @@
+.border-pane {
+    -fx-background-color: #fff;
+}
+
+.topBar {
+    -fx-background-color: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
+}
+
+.topBar .button {
+    -fx-background-color: rgb(255, 73, 73);
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+}
+
+.grid-pane {
+    -fx-background-color: #fff;
+}
+
+.rightPane, .leftPane {
+    -fx-background-color: #fff;
+}
+
+.greenLabel {
+    -fx-text-fill: rgb(21, 182, 0);
+}
+
+.redLabel {
+    -fx-text-fill: rgb(243, 0, 0);
+}
+
+.data0.chart-bar {
+    -fx-background-color: rgb(255, 174, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 5, -1);
+}
+.data1.chart-bar {
+    -fx-background-color: rgb(8, 151, 247);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 5, -1);
+}
+.data2.chart-bar {
+    -fx-background-color: rgb(255, 73, 73);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 5, -1);
+}
+.data3.chart-bar {
+    -fx-background-color:rgb(21, 182, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 5, -1);
+}
