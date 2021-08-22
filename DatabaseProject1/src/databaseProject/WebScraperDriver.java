@@ -24,7 +24,6 @@ public class WebScraperDriver
 	private static String PRODUCT_PRICE_SELECTOR = "";
 	static ArrayList<String> onlineBookSiteList = new ArrayList<>();
 
-
 	/*
 	 * This method extracts the books and their information from scraping the site
 	 * for data. If option 4 (scrape all sites) is not selected then it will verify
@@ -35,54 +34,51 @@ public class WebScraperDriver
 	public List<BookProperties> extractProducts(String website)
 	{
 		List<BookProperties> books = new ArrayList<>();
-		
+
 		int count = 0;
 		Document doc;
-		
-		verifySitesToExtract(onlineBookSiteList);
 
-		
-			try
+		try
+		{
+			doc = Jsoup.connect(website).get();
+		} catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		startMessage(website);
+
+		verifySiteTables(website);
+		PRODUCT_CARD_CLASS = verifyProductCard(website);
+		Elements productElements = doc.getElementsByClass(PRODUCT_CARD_CLASS);
+		for (Element productElement : productElements)
+		{
+			BookProperties bookListing = new BookProperties();
+
+			PRODUCT_TITLE_CLASS = verifyProductTitle(website);
+			Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
+			if (!titleElements.isEmpty())
 			{
-				doc = Jsoup.connect(website).get();
-			} catch (IOException e)
-			{
-				throw new RuntimeException(e);
+				bookListing.setTitle(titleElements.get(0).text());
 			}
-			
-			startMessage(website);
-			
-			verifySiteTables(website);
-			PRODUCT_CARD_CLASS = verifyProductCard(website);
-			Elements productElements = doc.getElementsByClass(PRODUCT_CARD_CLASS);
-			for (Element productElement : productElements)
+
+			PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
+			Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
+			if (!priceElements.isEmpty())
 			{
-				BookProperties bookListing = new BookProperties();
-
-				PRODUCT_TITLE_CLASS = verifyProductTitle(website);
-				Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
-				if (!titleElements.isEmpty())
-				{
-					bookListing.setTitle(titleElements.get(0).text());
-				}
-
-				PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
-				Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
-				if (!priceElements.isEmpty())
-				{
-					bookListing.setFormattedPrice(priceElements.get(0).text());
-				}
-
-				count++;
-				bookListing.setId(count);
-
-				books.add(bookListing);
+				bookListing.setFormattedPrice(priceElements.get(0).text());
 			}
-		
+
+			count++;
+			bookListing.setId(count);
+
+			books.add(bookListing);
+		}
+
 		return books;
 	}
 
-	private ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
+	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
 	{
 		if (UserInterface.selection == 1)
 		{
@@ -101,7 +97,7 @@ public class WebScraperDriver
 			onlineBookSiteList.add(AMAZON_BOOKS);
 			onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
 		}
-		if (UserInterface.selection == 5) 
+		if (UserInterface.selection == 5)
 		{
 			onlineBookSiteList.add(AMAZON_BOOKS);
 			onlineBookSiteList.add(EBAY_BOOKS);
@@ -117,14 +113,14 @@ public class WebScraperDriver
 			onlineBookSiteList.add(EBAY_BOOKS);
 			onlineBookSiteList.add(AMAZON_BOOKS);
 		}
-		
+
 		return onlineBookSiteList;
 	}
 
 	private void startMessage(String website)
 	{
 		String formattedWebsiteName = "";
-		
+
 		if (website.contentEquals(WebScraperDriver.AMAZON_BOOKS))
 		{
 			formattedWebsiteName = "Amazon Books";
@@ -137,10 +133,10 @@ public class WebScraperDriver
 		{
 			formattedWebsiteName = "Ebay Books";
 		}
-		
+
 		System.out.println("Extracting from " + formattedWebsiteName + ".");
 	}
-	
+
 	private void verifySiteTables(String website)
 	{
 		if (website.contentEquals(AMAZON_BOOKS))

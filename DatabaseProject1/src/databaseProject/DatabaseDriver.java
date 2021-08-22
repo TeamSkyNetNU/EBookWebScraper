@@ -26,6 +26,8 @@ public class DatabaseDriver
 	 */
 	void getBookProducts()
 	{
+		WebScraperDriver.verifySitesToExtract(WebScraperDriver.onlineBookSiteList);
+		
 		List<BookProperties> products;
 		for (String website : WebScraperDriver.onlineBookSiteList)
 		{
