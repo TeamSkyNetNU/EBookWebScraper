@@ -17,7 +17,7 @@ public class UserInterface
 	public static final String USER = "root";
 	public static final String PASSWORD = "password";
 
-	void beginProgram() throws ClassNotFoundException, SQLException
+	void run()
 	{
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
@@ -25,25 +25,25 @@ public class UserInterface
 		verifyUser();
 
 		System.out.println("Enter the website you want to scrape\n"
-				+ "1.Amazon Books 2.Barnes & Noble 3.Ebay Books: 4.All sites:\n");
+				+ "1.Amazon Books 2.Barnes & Noble 3.Ebay Books: 4.A&B 5.A&E 6.B&E 7.All:\n");
 
 		selection = scanner.nextInt();
-		if (selection != 1 && selection != 2 && selection != 3 && selection != 4)
+		if (selection > 7)
 		{
 			System.out.println("Wrong input. Please try again.");
-			System.exit(0);
+			exit();
 		}
-		if (selection != 4)
-		{
-			// TODO: books only display if a single site is selected, needs more
-			// functionality
-			displayBookData.displayBooks();
-		}
+//		if (selection != 4)
+//		{
+//			// TODO: books only display if a single site is selected, needs more
+//			// functionality
+//			displayBookData.displayBooks();
+//		}
 
 		databaseDriver.getBookProducts();
 	}
 
-	void verifyUser()
+	private void verifyUser()
 	{
 		String username = "";
 		String password = "";
@@ -65,8 +65,14 @@ public class UserInterface
 		} else
 		{
 			System.out.println("Wrong username. Please try again.");
-			System.exit(0);
+			exit();
 		}
+	}
+	
+	private void exit()
+	{
+		System.out.println("Shutting down EBook WebScraper.");
+		System.exit(0);
 	}
 
 }

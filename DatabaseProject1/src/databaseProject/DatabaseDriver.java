@@ -18,60 +18,20 @@ public class DatabaseDriver
 {
 	WebScraperDriver webScraper = new WebScraperDriver();
 	DatabaseQueryOperations databaseOperations = new DatabaseQueryOperations();
-	ArrayList<BigDecimal> bookPrices = new ArrayList<>();
-	ArrayList<String> titlePriceQueriesList = new ArrayList<>();
+	private ArrayList<BigDecimal> bookPrices = new ArrayList<>();
+	private ArrayList<String> titlePriceQueriesList = new ArrayList<>();
 
 	/*
-	 * This method retrieves books from WebScraperDriver, if 4 is selected by the
-	 * user on program launch then it retrieves books for all 3 sites and updates
-	 * their tables otherwise it retrieves the site selected by the user.
+	 * This method retrieves all extracted books from WebScraperDriver.
 	 */
-	void getBookProducts() throws ClassNotFoundException, SQLException
+	void getBookProducts()
 	{
-		List<BookProperties> products = null;
-
-		ArrayList<String> onlineBookSiteList = new ArrayList<>();
-		onlineBookSiteList.add(WebScraperDriver.BARNES_NOBLE_BOOKS);
-		onlineBookSiteList.add(WebScraperDriver.EBAY_BOOKS);
-		onlineBookSiteList.add(WebScraperDriver.AMAZON_BOOKS);
-
-		if (scrapeSpecificSite())
+		List<BookProperties> products;
+		for (String website : WebScraperDriver.onlineBookSiteList)
 		{
-			String website = "";
 			products = webScraper.extractProducts(website);
 			createConnection(products);
-		} else if (scrapeAllSites())
-		{
-			for (String website : onlineBookSiteList)
-			{
-				products = webScraper.extractProducts(website);
-				createConnection(products);
-			}
-		} else
-		{
-			System.out.println("We're sorry. A invalid selection was made somehow.\n" + "Please try again.");
-			System.exit(0);
 		}
-	}
-
-	boolean scrapeSpecificSite()
-	{
-		if (UserInterface.selection != 4)
-		{
-
-			return true;
-		}
-		return false;
-	}
-
-	boolean scrapeAllSites()
-	{
-		if (UserInterface.selection == 4)
-		{
-
-			return true;
-		}
-		return false;
 	}
 
 	/*
@@ -80,7 +40,7 @@ public class DatabaseDriver
 	 * and Price. The reason for resetting them is because the Id(Primary Key)
 	 * cannot be overwritten and it causes SQL errors, therefore halting the program
 	 */
-	private void createConnection(List<BookProperties> products) throws ClassNotFoundException, SQLException
+	private void createConnection(List<BookProperties> products)
 	{
 		try
 		{
@@ -95,13 +55,10 @@ public class DatabaseDriver
 			// and entering a new Id. Book amounts can change so this may not be viable as
 			// Id amount must stay the same
 			statement.execute(DatabaseQueryOperations.SQL_DROP_TABLE);
-			System.out.println("Table dropped");
-
 			statement.executeUpdate(DatabaseQueryOperations.SQL_CREATE_TABLE);
-			System.out.println("Table and columns created");
 
 			transferToDatabase(connection, products);
-		} catch (SQLException e)
+		} catch (SQLException | ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -119,17 +76,16 @@ public class DatabaseDriver
 			preparedStatement.setString(2, product.getTitle());
 			preparedStatement.setString(3, product.getFormattedPrice());
 			preparedStatement.execute();
-
-			System.out.println("Database updated");
 		}
+		System.out.println("Extraction Complete.");
 	}
 
-	void queryBook(String book) throws SQLException, ClassNotFoundException
+	void queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException
 	{
 		try
 		{
 			BigDecimal fixedPrice = null;
-			
+
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
@@ -140,6 +96,8 @@ public class DatabaseDriver
 
 			for (String tableTitle : titlePriceQueriesList)
 			{
+				displayTableTitle(tableTitle);
+				
 				PreparedStatement preparedStatement = connection.prepareStatement(
 						"SELECT Title, Price FROM " + tableTitle + " WHERE " + tableTitle + ".Title LIKE ?");
 				preparedStatement.setString(1, book);
@@ -149,16 +107,19 @@ public class DatabaseDriver
 
 					System.out.println("Book: " + result.getString(1) + "\nPrice: " + result.getString("Price"));
 					String price = result.getString("Price");
-					String bookPrice = price.replace("$", ""); //Strip $ symbol to convert into BigDecimal
+					String bookPrice = price.replace("$", ""); // Strip $ symbol to convert into BigDecimal
 					fixedPrice = new BigDecimal(bookPrice);
-					
-					bookPrices.add(fixedPrice);	
+
+					bookPrices.add(fixedPrice);
 				}
 			}
-			fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
-			
-			System.out.println("$" +fixedPrice + " is the lowest price for this book!");
 
+			if (lowestPriceRequested == true)
+			{
+				fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
+
+				System.out.println("$" + fixedPrice + " is the lowest price for this book!");
+			}
 
 		} catch (SQLException e)
 		{
@@ -166,8 +127,7 @@ public class DatabaseDriver
 		}
 	}
 
-	
-	public BigDecimal itemWithLowestCost(ArrayList<BigDecimal> bookPrices, BigDecimal fixedPrice)
+	private BigDecimal itemWithLowestCost(ArrayList<BigDecimal> bookPrices, BigDecimal fixedPrice)
 	{
 		BigDecimal smallest = bookPrices.get(0);
 
@@ -178,16 +138,56 @@ public class DatabaseDriver
 				smallest = bookPrices.get(i);
 			}
 		}
-	
+
 		return smallest;
 	}
-	
-	
+
 	private void GetQueriesList()
 	{
 		titlePriceQueriesList.add("amazon");
 		titlePriceQueriesList.add("barnesnoble");
 		titlePriceQueriesList.add("ebay");
+
+	}
+	
+	private void displayTableTitle(String tableTitle)
+	{
+		if (tableTitle == "amazon")
+		{
+			System.out.println("Amazon Books:");
+		}
+		if (tableTitle == "barnes")
+		{
+			System.out.println("Barnes & Noble:");
+		}
+		if (tableTitle == "ebay")
+		{
+			System.out.println("Ebay Books:");
+		}
+	}
+
+	void queryDB()
+	{
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection;
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next())
+			{
+				System.out.println(
+						String.format("Product:\n%s\n%s\n", result.getString("Title"), result.getString("Price")));
+//				System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
+			}
+
+		} catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }

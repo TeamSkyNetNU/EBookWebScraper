@@ -1,21 +1,19 @@
 package databaseProject;
 
-import java.sql.SQLException;
-
 /*
  * 
  * 	This class contains the main method that runs the Ebook Webscraper.
  */
 public class BookScraperMain
 {
-	public static void main(String[] args) throws ClassNotFoundException, SQLException
+	public static void main(String[] args) 
 	{
-
-		
     	UserInterface userInterface = new UserInterface();
-//		BookMarketAnalysis bookMarketAnalysis = new BookMarketAnalysis();
-//
-//    	userInterface.beginProgram();
-//		bookMarketAnalysis.getLowestPrice();
+    	DisplayBookData DisplayBookData = new DisplayBookData();
+		BookMarketAnalysis bookMarketAnalysis = new BookMarketAnalysis();
+
+    	userInterface.run();
+//    	DisplayBookData.beginDisplay();
+//		bookMarketAnalysis.beginMarketAnalysis();
 	}
 }
