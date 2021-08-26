@@ -14,9 +14,9 @@ public class DatabaseQueryOperations
 	public static final String SQL_INSERT_EBAY = "INSERT INTO ebay (Id, Title, Price) VALUES (?,?,?)";
 	public static String SQL_INSERT = "INSERT INTO inventory (Id, Title, Price) VALUES (?,?,?)";
 	
-	public static final String SQL_SELECT_AMAZON = "SELECT * FROM mydb.amazon;";
-	public static final String SQL_SELECT_BARNES = "SELECT * FROM mydb.barnesnoble;";
-	public static final String SQL_SELECT_EBAY = "SELECT * FROM mydb.ebay;";
+	public static final String SQL_SELECT_AMAZON = "SELECT * FROM db.amazon;";
+	public static final String SQL_SELECT_BARNES = "SELECT * FROM db.barnesnoble;";
+	public static final String SQL_SELECT_EBAY = "SELECT * FROM db.ebay;";
 	public static String SQL_SELECT = "SELECT * FROM mydb.inventory;";
 
 	public static final String SQL_DROP_AMAZON = "DROP TABLE IF EXISTS amazon";

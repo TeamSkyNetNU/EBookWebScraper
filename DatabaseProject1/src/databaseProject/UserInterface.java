@@ -14,8 +14,8 @@ public class UserInterface
 	DatabaseDriver databaseDriver = new DatabaseDriver();
 
 	static int selection;
-	public static final String USER = "root";
-	public static final String PASSWORD = "password";
+	public static final String USER = "student";
+	public static final String PASSWORD = "student";
 
 	void run()
 	{

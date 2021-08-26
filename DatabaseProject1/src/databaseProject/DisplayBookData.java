@@ -13,12 +13,12 @@ public class DisplayBookData
 	
 	void beginDisplay()
 	{
-		viewDb();
+		viewDB();
 		
 		searchBook();
 	}
 	
-	private void viewDb()
+	private void viewDB()
 	{
 		verifyTableViewed();
 		databaseDriver.queryDB();

@@ -78,6 +78,9 @@ public class WebScraperDriver
 		return books;
 	}
 
+	/*
+	 * For scraping selection, uses #'s 1-3, for combinations of 2 sites uses 4,5,6, and 7 for all sites
+	 */
 	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
 	{
 		if (UserInterface.selection == 1)

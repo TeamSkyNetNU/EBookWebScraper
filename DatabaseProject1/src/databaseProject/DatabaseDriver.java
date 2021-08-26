@@ -27,12 +27,12 @@ public class DatabaseDriver
 	void getBookProducts()
 	{
 		WebScraperDriver.verifySitesToExtract(WebScraperDriver.onlineBookSiteList);
-		
-		List<BookProperties> products;
+
+		List<BookProperties> books;
 		for (String website : WebScraperDriver.onlineBookSiteList)
 		{
-			products = webScraper.extractProducts(website);
-			createConnection(products);
+			books = webScraper.extractProducts(website);
+			createConnection(books);
 		}
 	}
 
@@ -42,13 +42,13 @@ public class DatabaseDriver
 	 * and Price. The reason for resetting them is because the Id(Primary Key)
 	 * cannot be overwritten and it causes SQL errors, therefore halting the program
 	 */
-	private void createConnection(List<BookProperties> products)
+	private void createConnection(List<BookProperties> books)
 	{
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
 
 			Statement statement = connection.createStatement();
 
@@ -59,7 +59,7 @@ public class DatabaseDriver
 			statement.execute(DatabaseQueryOperations.SQL_DROP_TABLE);
 			statement.executeUpdate(DatabaseQueryOperations.SQL_CREATE_TABLE);
 
-			transferToDatabase(connection, products);
+			transferToDatabase(connection, books);
 		} catch (SQLException | ClassNotFoundException e)
 		{
 			e.printStackTrace();
@@ -69,14 +69,14 @@ public class DatabaseDriver
 	/*
 	 * This method inserts data to the SQL DB
 	 */
-	private void transferToDatabase(Connection connection, List<BookProperties> products) throws SQLException
+	private void transferToDatabase(Connection connection, List<BookProperties> books) throws SQLException
 	{
 		PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_INSERT);
-		for (BookProperties product : products)
+		for (BookProperties book : books)
 		{
-			preparedStatement.setInt(1, product.getId());
-			preparedStatement.setString(2, product.getTitle());
-			preparedStatement.setString(3, product.getFormattedPrice());
+			preparedStatement.setInt(1, book.getId());
+			preparedStatement.setString(2, book.getTitle());
+			preparedStatement.setString(3, book.getFormattedPrice());
 			preparedStatement.execute();
 		}
 		System.out.println("Extraction Complete.");
@@ -90,16 +90,17 @@ public class DatabaseDriver
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+			connection = DriverManager.getConnection(
+					"jdbc:mysql://70.183.97.249:3306/db", "student", "student");
 
 			DatabaseQueryOperations.bookSelection = book;
 
-			GetQueriesList();
+			getQueriesList();
 
 			for (String tableTitle : titlePriceQueriesList)
 			{
 				displayTableTitle(tableTitle);
-				
+
 				PreparedStatement preparedStatement = connection.prepareStatement(
 						"SELECT Title, Price FROM " + tableTitle + " WHERE " + tableTitle + ".Title LIKE ?");
 				preparedStatement.setString(1, book);
@@ -144,14 +145,14 @@ public class DatabaseDriver
 		return smallest;
 	}
 
-	private void GetQueriesList()
+	private void getQueriesList()
 	{
 		titlePriceQueriesList.add("amazon");
 		titlePriceQueriesList.add("barnesnoble");
 		titlePriceQueriesList.add("ebay");
 
 	}
-	
+
 	private void displayTableTitle(String tableTitle)
 	{
 		if (tableTitle == "amazon")
@@ -168,13 +169,16 @@ public class DatabaseDriver
 		}
 	}
 
+	/*
+	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from verifyTableViewed
+	 */
 	void queryDB()
 	{
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
 
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();

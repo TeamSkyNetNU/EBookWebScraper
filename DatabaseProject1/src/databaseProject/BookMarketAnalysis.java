@@ -8,30 +8,34 @@ import java.util.Scanner;
  *	This class generates price recommendation analysis based off the book entries pricing data. 
  */
 public class BookMarketAnalysis
-{	
+{
 	DatabaseDriver dataBaseDriver = new DatabaseDriver();
 
-	
-	void beginMarketAnalysis() throws ClassNotFoundException, SQLException
+	void beginMarketAnalysis()
 	{
 		getLowestPrice();
 	}
-	
-	private void getLowestPrice() throws ClassNotFoundException, SQLException
+
+	private void getLowestPrice()
 	{
-		@SuppressWarnings("resource")
-		
 		String bookSpecified = "";
 		boolean lowestPriceRequested = true;
 		
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter book to compare:");
-		
+
 		bookSpecified = scanner.nextLine();
-		
-		dataBaseDriver.queryBook(bookSpecified, lowestPriceRequested);
+
+		try
+		{
+			dataBaseDriver.queryBook(bookSpecified, lowestPriceRequested);
+		} catch (ClassNotFoundException | SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	
-	//TODO Price Recommendation, view Price
+	// TODO Price Recommendation, view Price
 }
