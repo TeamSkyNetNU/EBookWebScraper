@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseDriver
 {
 	WebScraperDriver webScraper = new WebScraperDriver();
-	DatabaseOperations databaseOperations = new DatabaseOperations();
+	DatabaseQueryOperations databaseOperations = new DatabaseQueryOperations();
 	private ArrayList<BigDecimal> bookPrices = new ArrayList<>();
 	private ArrayList<String> titlePriceQueriesList = new ArrayList<>();
 
