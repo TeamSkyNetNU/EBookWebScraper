@@ -1,6 +1,7 @@
 package databaseProject;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -18,10 +19,11 @@ public class DisplayBookData
 		searchBook();
 	}
 	
-	private void viewDB()
+	public List<BookProperties> viewDB()
 	{
 		verifyTableViewed();
-		databaseDriver.queryDB();
+		
+		return databaseDriver.queryDB();
 		
 //		String website = null;
 //		WebScraperDriver webScraper = new WebScraperDriver();

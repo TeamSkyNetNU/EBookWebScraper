@@ -27,6 +27,9 @@ public class LoginSceneController {
 
     @FXML
     private Button loginButton;
+    
+    @FXML
+    private Button exitButton;
 
     @FXML
     void switchScenes(ActionEvent event) {
@@ -58,6 +61,11 @@ public class LoginSceneController {
     	catch (IOException ex) {
     		System.out.println(ex);
     	}
+    }
+    
+    @FXML
+    private void exitApplication(ActionEvent event) {
+    	System.exit(0);
     }
 
 }

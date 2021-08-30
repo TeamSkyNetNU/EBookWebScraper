@@ -89,14 +89,18 @@ public class UserInterfaceController implements Initializable {
     }
     
     private ObservableList<BookProperties> getBookData() {
+    	System.out.println("Show Data pressed");
     	ObservableList<BookProperties> bookData = FXCollections.observableArrayList();
     	
-    	String website = "";
+    	DisplayBookData displayBook = new DisplayBookData();
 		
-		WebScraperDriver webScraper = new WebScraperDriver();
-		List<BookProperties> products = webScraper.extractProducts(website);
+		List<BookProperties> products = displayBook.viewDB();
 	
 	    for (BookProperties product : products) {
+	    	
+	    	System.out.println(String.format("Product:\n%s\n%s\n", product.getTitle(), 
+            		product.getFormattedPrice()));
+	    	
 	    	bookData.add(product);
         }
     	

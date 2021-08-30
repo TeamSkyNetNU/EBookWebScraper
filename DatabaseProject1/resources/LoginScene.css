@@ -7,6 +7,12 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 5, 5);
 }
 
+.exitButton {
+	-fx-text-fill: rgb(255, 73, 73);
+	-fx-background-color:  #fff;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 5, 5);
+}
+
 .textbox {
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 5, 5);
 }

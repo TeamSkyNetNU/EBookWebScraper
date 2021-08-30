@@ -29,6 +29,9 @@ public class MainSceneController implements Initializable {
 	@FXML
 	private MenuItem loadMarketStageButton;
 	
+	@FXML
+	private MenuItem exitProgramButton;
+	
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
     	rootPane.setOpacity(0);
@@ -57,5 +60,10 @@ public class MainSceneController implements Initializable {
     	FxmlLoader object = new FxmlLoader();
     	BorderPane view = object.getPage("UserInterface");
     	rootPane.setCenter(view);
+    }
+    
+    @FXML
+    private void exitProgram(ActionEvent event) {
+    	System.exit(0);
     }
 }

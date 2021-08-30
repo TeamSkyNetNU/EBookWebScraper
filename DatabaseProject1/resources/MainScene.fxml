@@ -19,6 +19,11 @@
                   <MenuItem fx:id="loadMarketStageButton" mnemonicParsing="false" onAction="#loadMarketStage" styleClass="menuItem" text="Load Market Analysis Screen" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Exit">
+              <items>
+                <MenuItem fx:id="exitProgramButton" mnemonicParsing="false" onAction="#exitProgram" styleClass="menuItem" text="Exit Program" />
+              </items>
+            </Menu>
          </menus>
       </MenuBar>
    </top>

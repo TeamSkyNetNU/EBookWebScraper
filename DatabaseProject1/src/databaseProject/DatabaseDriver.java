@@ -172,27 +172,39 @@ public class DatabaseDriver
 	/*
 	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from verifyTableViewed
 	 */
-	void queryDB()
+	public List<BookProperties> queryDB()
 	{
+		List<BookProperties> bookList = new ArrayList<>();
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
 			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
-
+			
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();
+			
 			while (result.next())
 			{
+				BookProperties bookListing = new BookProperties();
+				
+				bookListing.setTitle(result.getString("Title"));
+				bookListing.setFormattedPrice(result.getString("Price"));
+				bookListing.setId(1);
+				
+				
 				System.out.println(
 						String.format("Product:\n%s\n%s\n", result.getString("Title"), result.getString("Price")));
-//				System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
-			}
+				//System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
 
-		} catch (ClassNotFoundException | SQLException e)
-		{
+			}
+			System.out.println("queryDB accessed");
+
+		}
+		catch (ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 		}
-
+		
+		return bookList;
 	}
 }
