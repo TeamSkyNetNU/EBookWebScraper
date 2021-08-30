@@ -21,8 +21,9 @@ public class UserInterfaceController implements Initializable {
 	
 	private enum WebsiteChoice {
 		AMAZON(1),
-		EBAY(2),
-		BARNES(3);
+		BARNES(2),
+		EBAY(3),
+		INVENTORY(4);
 		
 		private final int siteNum;
 
@@ -95,15 +96,21 @@ public class UserInterfaceController implements Initializable {
     	DisplayBookData displayBook = new DisplayBookData();
 		
 		List<BookProperties> products = displayBook.viewDB();
+		
+		System.out.println("products received");
 	
+		// This for loop is never executed
+		
 	    for (BookProperties product : products) {
-	    	
+	    	System.out.println("product printed");
 	    	System.out.println(String.format("Product:\n%s\n%s\n", product.getTitle(), 
             		product.getFormattedPrice()));
 	    	
 	    	bookData.add(product);
         }
     	
+	    System.out.println("finished adding products");
+	    
     	return bookData;
     }
 }

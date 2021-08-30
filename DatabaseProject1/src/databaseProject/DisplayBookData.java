@@ -22,7 +22,7 @@ public class DisplayBookData
 	public List<BookProperties> viewDB()
 	{
 		verifyTableViewed();
-		
+	
 		return databaseDriver.queryDB();
 		
 //		String website = null;

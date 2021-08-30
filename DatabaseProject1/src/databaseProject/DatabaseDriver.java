@@ -198,13 +198,11 @@ public class DatabaseDriver
 				//System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
 
 			}
-			System.out.println("queryDB accessed");
-
 		}
 		catch (ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 		}
-		
+		System.out.println("queryDB accessed");
 		return bookList;
 	}
 }
