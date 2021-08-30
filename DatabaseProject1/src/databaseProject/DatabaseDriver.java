@@ -172,11 +172,9 @@ public class DatabaseDriver
 	/*
 	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from verifyTableViewed
 	 */
-	public List<BookProperties> queryDB()
-	{
+	public List<BookProperties> queryDB() {
 		List<BookProperties> bookList = new ArrayList<>();
-		try
-		{
+		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
 			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
@@ -184,25 +182,24 @@ public class DatabaseDriver
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();
 			
-			while (result.next())
-			{
+			while (result.next()) {
 				BookProperties bookListing = new BookProperties();
 				
 				bookListing.setTitle(result.getString("Title"));
 				bookListing.setFormattedPrice(result.getString("Price"));
-				bookListing.setId(1);
+				bookListing.setId(Integer.parseInt(result.getString("Id")));
 				
+				bookList.add(bookListing);
 				
-				System.out.println(
-						String.format("Product:\n%s\n%s\n", result.getString("Title"), result.getString("Price")));
-				//System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
-
+				/*System.out.println(
+						String.format("Product: %s\nPrice: %s\nId: %d", bookListing.getTitle(), bookListing.getFormattedPrice(), bookListing.getId()));
+				*/
 			}
 		}
 		catch (ClassNotFoundException | SQLException e){
 			e.printStackTrace();
 		}
-		System.out.println("queryDB accessed");
+		
 		return bookList;
 	}
 }
