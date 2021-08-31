@@ -20,6 +20,11 @@ public class DatabaseDriver
 	DatabaseQueryOperations databaseOperations = new DatabaseQueryOperations();
 	private ArrayList<BigDecimal> bookPrices = new ArrayList<>();
 	private ArrayList<String> titlePriceQueriesList = new ArrayList<>();
+	Config cfg = new Config();
+	String dbName = cfg.getProperty("mDbName");
+	String dbUser = cfg.getProperty("mDbUser");
+	String dbPwd = cfg.getProperty("mDbPwd");
+	String dbHost = cfg.getProperty("mDbHost");
 
 	/*
 	 * This method retrieves all extracted books from WebScraperDriver.
@@ -48,7 +53,8 @@ public class DatabaseDriver
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			Statement statement = connection.createStatement();
 
@@ -90,8 +96,8 @@ public class DatabaseDriver
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			DatabaseQueryOperations.bookSelection = book;
 
@@ -177,7 +183,8 @@ public class DatabaseDriver
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();
@@ -190,10 +197,7 @@ public class DatabaseDriver
 				bookListing.setId(Integer.parseInt(result.getString("Id")));
 				
 				bookList.add(bookListing);
-				
-				/*System.out.println(
-						String.format("Product: %s\nPrice: %s\nId: %d", bookListing.getTitle(), bookListing.getFormattedPrice(), bookListing.getId()));
-				*/
+
 			}
 		}
 		catch (ClassNotFoundException | SQLException e){
