@@ -51,7 +51,11 @@ public class MarketAnalysisSceneController implements Initializable {
 
     @FXML
     void compareBook(ActionEvent event) {
-    	bookTitleLabel.setText("Market Analysis for: " + bookSearchTextField.getText());
+    	String bookSpecified = bookSearchTextField.getText();
+    	bookTitleLabel.setText("Market Analysis for: " + bookSpecified);
+    	
+    	DisplayBookData bookDisplay = new DisplayBookData();
+    	bookDisplay.searchBook(bookSpecified);
     }
     
     @Override
@@ -62,21 +66,21 @@ public class MarketAnalysisSceneController implements Initializable {
     	barChart = new BarChart<String,Number>(xAxis,yAxis);
     	*/
     	
-    	double amazonPrice = 16.99;
-    	double ebayPrice = 15.99;
-    	double barnesPrice = 12.99;
-    	double yourPrice = 14.99;
+    	double amazonPrice = 0;
+    	double ebayPrice = 0;
+    	double barnesPrice = 0;
+    	double yourPrice = 0;
     	
     	barChart.setTitle("Price Analysis");
     	amazonPriceLabel.setText("$" + amazonPrice);
     	amazonPriceLabel.getStyleClass().clear();
-    	amazonPriceLabel.getStyleClass().add("greenLabel");
+    	//amazonPriceLabel.getStyleClass().add("greenLabel");
     	ebayPriceLabel.setText("$" + ebayPrice);
     	ebayPriceLabel.getStyleClass().clear();
-    	ebayPriceLabel.getStyleClass().add("greenLabel");
+    	//ebayPriceLabel.getStyleClass().add("greenLabel");
     	barnesPriceLabel.setText("$" + barnesPrice);
     	barnesPriceLabel.getStyleClass().clear();
-    	barnesPriceLabel.getStyleClass().add("redLabel");
+    	//barnesPriceLabel.getStyleClass().add("redLabel");
     	yourPriceLabel.setText("$" + yourPrice);
     	
     	XYChart.Series series1 = new XYChart.Series<>();
@@ -86,5 +90,15 @@ public class MarketAnalysisSceneController implements Initializable {
     	series1.getData().add(new XYChart.Data("Our Price", yourPrice));
     	
     	barChart.getData().add(series1);
+    }
+    
+    // TODO: complete function to update Chart
+    void updateChart() {
+    	
+    }
+    
+    // TODO: complete function to update Prices
+    void updatePrices() {
+    	
     }
 }

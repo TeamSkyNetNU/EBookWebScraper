@@ -88,10 +88,9 @@ public class DatabaseDriver
 		System.out.println("Extraction Complete.");
 	}
 
-	void queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException
-	{
-		try
-		{
+	void queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException {
+		
+		try {
 			BigDecimal fixedPrice = null;
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -103,8 +102,7 @@ public class DatabaseDriver
 
 			getQueriesList();
 
-			for (String tableTitle : titlePriceQueriesList)
-			{
+			for (String tableTitle : titlePriceQueriesList) {
 				displayTableTitle(tableTitle);
 
 				PreparedStatement preparedStatement = connection.prepareStatement(
@@ -123,15 +121,14 @@ public class DatabaseDriver
 				}
 			}
 
-			if (lowestPriceRequested == true)
-			{
+			if (lowestPriceRequested == true) {
 				fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
 
 				System.out.println("$" + fixedPrice + " is the lowest price for this book!");
 			}
 
-		} catch (SQLException e)
-		{
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -156,7 +153,7 @@ public class DatabaseDriver
 		titlePriceQueriesList.add("amazon");
 		titlePriceQueriesList.add("barnesnoble");
 		titlePriceQueriesList.add("ebay");
-
+		titlePriceQueriesList.add("inventory");
 	}
 
 	private void displayTableTitle(String tableTitle)

@@ -16,7 +16,7 @@ public class DisplayBookData
 	{
 		viewDB();
 		
-		searchBook();
+		//searchBook();
 	}
 	
 	public List<BookProperties> viewDB()
@@ -52,22 +52,22 @@ public class DisplayBookData
 		}
 	}
 	
-	private void searchBook() 
+	public void searchBook(String bookSpecified) 
 	{
-		String bookSpecified = "";
+		//String bookSpecified = "";
 		boolean lowestPriceRequested = false;
 		
+		/*
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter book to search:");
 		
 		bookSpecified = scanner.nextLine();
-		
-		try
-		{
+		*/
+		try {
 			databaseDriver.queryBook(bookSpecified, lowestPriceRequested);
-		} catch (ClassNotFoundException | SQLException e)
-		{
+		} 
+		catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
