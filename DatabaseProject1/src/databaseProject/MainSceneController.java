@@ -40,7 +40,7 @@ public class MainSceneController implements Initializable {
 	
 	private void makeFadeInTransition() {
     	FadeTransition fadeTransition = new FadeTransition();
-    	fadeTransition.setDuration(Duration.millis(250));
+    	fadeTransition.setDuration(Duration.millis(500));
     	fadeTransition.setNode(rootPane);
     	fadeTransition.setFromValue(0);
     	fadeTransition.setToValue(1);

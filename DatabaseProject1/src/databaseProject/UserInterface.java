@@ -12,17 +12,18 @@ public class UserInterface
 {
 	DisplayBookData displayBookData = new DisplayBookData();
 	DatabaseDriver databaseDriver = new DatabaseDriver();
+	static Config cfg = new Config();
 
 	static int selection;
-	public static final String USER = "student";
-	public static final String PASSWORD = "student";
+	public static final String USER = cfg.getProperty("mDbUser");
+	public static final String PASSWORD = cfg.getProperty("mDbPwd");
 
 	void run()
 	{
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 
-		verifyUser();
+		//verifyUser();
 
 		System.out.println("Enter the website you want to scrape\n"
 				+ "1.Amazon Books 2.Barnes & Noble 3.Ebay Books: 4.A&B 5.A&E 6.B&E 7.All:\n");
@@ -43,16 +44,15 @@ public class UserInterface
 		databaseDriver.getBookProducts();
 	}
 
-	private void verifyUser()
+	public static boolean verifyUser(String username, String password)
 	{
-		String username = "";
-		String password = "";
-
+		/*
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter Username:");
 
 		username = scanner.nextLine();
+		
 		if (username.matches(USER))
 		{
 			System.out.println("Enter password:");
@@ -65,7 +65,13 @@ public class UserInterface
 		} else
 		{
 			System.out.println("Wrong username. Please try again.");
-			exit();
+		}
+		*/
+		
+		if (username.matches(USER) && username.matches(PASSWORD)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

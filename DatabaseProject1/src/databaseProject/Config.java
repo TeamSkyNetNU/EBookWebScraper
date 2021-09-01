@@ -11,7 +11,9 @@ public class Config {
 	Properties configFile;
 	
 	public Config() {
+		
 		configFile = new Properties();
+		
 		try {
 			configFile.load(BookScraperMain.class.getResourceAsStream("/config.properties"));
 		}

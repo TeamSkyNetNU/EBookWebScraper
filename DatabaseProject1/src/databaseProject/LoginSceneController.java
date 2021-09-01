@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -30,11 +32,9 @@ public class LoginSceneController {
     
     @FXML
     private Button exitButton;
-
+    
     @FXML
-    void switchScenes(ActionEvent event) {
-    	makeFadeOut();
-    }
+    private Label systemMessageLabel;
     
     private void makeFadeOut() {
     	FadeTransition fadeTransition = new FadeTransition();
@@ -67,5 +67,18 @@ public class LoginSceneController {
     private void exitApplication(ActionEvent event) {
     	System.exit(0);
     }
-
+    
+    @FXML
+    void verifyLogin(ActionEvent event) {
+    	if (UserInterface.verifyUser(usernameTextField.getText(), passwordTextField.getText())) {
+    		// Change message text color to black
+    		systemMessageLabel.setTextFill(Color.color(0, 0, 0));
+    		systemMessageLabel.setText("Login Successful");
+    		makeFadeOut();
+    	} else {
+    		// Change message text color to red
+    		systemMessageLabel.setTextFill(Color.color(1, 0.2, 0.2));
+    		systemMessageLabel.setText("Incorrect credentials. Please try again.");
+    	}
+    }
 }
