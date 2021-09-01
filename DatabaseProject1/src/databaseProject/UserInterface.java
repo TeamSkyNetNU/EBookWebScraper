@@ -68,7 +68,7 @@ public class UserInterface
 		}
 		*/
 		
-		if (username.matches(USER) && username.matches(PASSWORD)) {
+		if (username.matches(USER) && password.matches(PASSWORD)) {
 			return true;
 		} else {
 			return false;
