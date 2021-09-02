@@ -64,6 +64,6 @@ public class MainSceneController implements Initializable {
     
     @FXML
     private void exitProgram(ActionEvent event) {
-    	System.exit(0);
+    	UserInterface.exit();
     }
 }

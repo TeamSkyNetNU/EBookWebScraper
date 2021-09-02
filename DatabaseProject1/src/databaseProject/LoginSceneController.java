@@ -65,7 +65,7 @@ public class LoginSceneController {
     
     @FXML
     private void exitApplication(ActionEvent event) {
-    	System.exit(0);
+    	UserInterface.exit();
     }
     
     @FXML

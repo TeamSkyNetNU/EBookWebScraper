@@ -75,7 +75,7 @@ public class UserInterface
 		}
 	}
 	
-	private void exit()
+	public static void exit()
 	{
 		System.out.println("Shutting down EBook WebScraper.");
 		System.exit(0);
