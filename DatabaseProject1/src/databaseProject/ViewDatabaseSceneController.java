@@ -17,7 +17,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-public class UserInterfaceController implements Initializable {
+public class ViewDatabaseSceneController implements Initializable {
 	
 	private enum WebsiteChoice {
 		AMAZON(1),

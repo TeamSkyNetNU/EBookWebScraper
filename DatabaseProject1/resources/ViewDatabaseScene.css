@@ -30,7 +30,7 @@
 }
 
 .table-row-cell:even {
-    -fx-background-color: rgb(236, 236, 236);
+    -fx-background-color: #ECECEC;
 }
 
 .table-row-cell:odd {

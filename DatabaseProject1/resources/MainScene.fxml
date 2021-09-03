@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -19,6 +21,17 @@
                   <MenuItem fx:id="loadMarketStageButton" mnemonicParsing="false" onAction="#loadMarketStage" styleClass="menuItem" text="Load Market Analysis Screen" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Scrape Websites">
+              <items>
+                <MenuItem fx:id="scrapeAmazonButton" mnemonicParsing="false" onAction="#scrapeAmazon" text="Scrape Amazon" />
+                  <MenuItem fx:id="scrapeEbayButton" mnemonicParsing="false" onAction="#scrapeEbay" text="Scrape Ebay Books" />
+                  <MenuItem fx:id="scrapeBarnesButton" mnemonicParsing="false" onAction="#scrapeBarnes" text="Scrape Barnes &amp; Noble" />
+                  <MenuItem fx:id="scrapeAmazonEbayButton" mnemonicParsing="false" onAction="#scrapeAmazonEbay" text="Scrape Amazon &amp; Ebay" />
+                  <MenuItem fx:id="scrapeAmazonBarnesButton" mnemonicParsing="false" onAction="#scrapeAmazonBarnes" text="Scrape Amazon &amp; Barnes" />
+                  <MenuItem fx:id="scrapeEbayBarnesButton" mnemonicParsing="false" onAction="#scrapeEbayBarnes" text="Scrape Ebay &amp; Barnes" />
+                  <MenuItem fx:id="scrapeAllButton" mnemonicParsing="false" onAction="#scrapeAll" text="Scrape All Sites" />
+              </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Exit">
               <items>
                 <MenuItem fx:id="exitProgramButton" mnemonicParsing="false" onAction="#exitProgram" styleClass="menuItem" text="Exit Program" />
@@ -27,4 +40,11 @@
          </menus>
       </MenuBar>
    </top>
+   <bottom>
+      <Label fx:id="messageLabel" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </BorderPane.margin>
+      </Label>
+   </bottom>
 </BorderPane>

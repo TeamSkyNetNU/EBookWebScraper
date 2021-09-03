@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 /*
  * 
  * 	This class contains the main method that runs the Ebook Webscraper.
