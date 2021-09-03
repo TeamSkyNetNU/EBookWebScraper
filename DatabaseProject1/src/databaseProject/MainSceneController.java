@@ -29,30 +29,12 @@ public class MainSceneController implements Initializable {
 	
 	@FXML
 	private MenuItem loadMarketStageButton;
+
+	@FXML
+	private MenuItem loadScraperStageButton;
 	
 	@FXML
 	private MenuItem exitProgramButton;
-
-	@FXML
-	private MenuItem scrapeAmazonButton;
-
-	@FXML
-	private MenuItem scrapeEbayButton;
-
-	@FXML
-	private MenuItem scrapeBarnesButton;
-
-	@FXML
-	private MenuItem scrapeAmazonEbayButton;
-
-	@FXML
-	private MenuItem scrapeAmazonBarnesButton;
-
-	@FXML
-	private MenuItem scrapeEbayBarnesButton;
-
-	@FXML
-	private MenuItem scrapeAllButton;
 
 	@FXML
 	private Label messageLabel;
@@ -86,46 +68,18 @@ public class MainSceneController implements Initializable {
     	BorderPane view = object.getPage("ViewDatabaseScene");
     	rootPane.setCenter(view);
     }
+
+    @FXML
+	private void loadScraperStage(ActionEvent event) {
+		FxmlLoader object = new FxmlLoader();
+		BorderPane view = object.getPage("WebScraperScene");
+		rootPane.setCenter(view);
+	}
     
     @FXML
     private void exitProgram(ActionEvent event) {
     	UserInterface.exit();
     }
-
-	@FXML
-	void scrapeAll(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeAmazon(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeAmazonBarnes(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeAmazonEbay(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeBarnes(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeEbay(ActionEvent event) {
-		runScraper();
-	}
-
-	@FXML
-	void scrapeEbayBarnes(ActionEvent event) {
-		runScraper();
-	}
 
 	void runScraper() {
 		messageLabel.setText("Scraping");

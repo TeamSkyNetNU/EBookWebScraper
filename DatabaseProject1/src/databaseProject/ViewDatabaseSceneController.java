@@ -62,6 +62,9 @@ public class ViewDatabaseSceneController implements Initializable {
 
     @FXML
     private RadioButton barnesRadioButton;
+
+    @FXML
+    private RadioButton inventoryRadioButton;
     
     @FXML
     private ToggleGroup websiteToggleGroup;
@@ -81,6 +84,7 @@ public class ViewDatabaseSceneController implements Initializable {
     	amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
     	ebayRadioButton.setUserData(WebsiteChoice.EBAY);
     	barnesRadioButton.setUserData(WebsiteChoice.BARNES);
+    	inventoryRadioButton.setUserData(WebsiteChoice.INVENTORY);
     }
     
     @FXML

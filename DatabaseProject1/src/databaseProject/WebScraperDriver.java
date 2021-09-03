@@ -86,6 +86,7 @@ public class WebScraperDriver
 	 */
 	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
 	{
+		onlineBookSiteList.clear();
 		if (UserInterface.selection == 1)
 		{
 			onlineBookSiteList.add(AMAZON_BOOKS);

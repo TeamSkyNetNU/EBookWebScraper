@@ -30,6 +30,7 @@
             </RadioButton>
             <RadioButton fx:id="ebayRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Ebay Books" toggleGroup="$websiteToggleGroup" />
             <RadioButton fx:id="barnesRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Barnes &amp; Noble" toggleGroup="$websiteToggleGroup" />
+            <RadioButton fx:id="inventoryRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Store Inventory" toggleGroup="$websiteToggleGroup" />
         </items>
          <BorderPane.margin>
             <Insets />

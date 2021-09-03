@@ -22,17 +22,11 @@
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Scrape Websites">
-              <items>
-                <MenuItem fx:id="scrapeAmazonButton" mnemonicParsing="false" onAction="#scrapeAmazon" text="Scrape Amazon" />
-                  <MenuItem fx:id="scrapeEbayButton" mnemonicParsing="false" onAction="#scrapeEbay" text="Scrape Ebay Books" />
-                  <MenuItem fx:id="scrapeBarnesButton" mnemonicParsing="false" onAction="#scrapeBarnes" text="Scrape Barnes &amp; Noble" />
-                  <MenuItem fx:id="scrapeAmazonEbayButton" mnemonicParsing="false" onAction="#scrapeAmazonEbay" text="Scrape Amazon &amp; Ebay" />
-                  <MenuItem fx:id="scrapeAmazonBarnesButton" mnemonicParsing="false" onAction="#scrapeAmazonBarnes" text="Scrape Amazon &amp; Barnes" />
-                  <MenuItem fx:id="scrapeEbayBarnesButton" mnemonicParsing="false" onAction="#scrapeEbayBarnes" text="Scrape Ebay &amp; Barnes" />
-                  <MenuItem fx:id="scrapeAllButton" mnemonicParsing="false" onAction="#scrapeAll" text="Scrape All Sites" />
-              </items>
+               <items>
+                  <MenuItem fx:id="loadScraperStageButton" mnemonicParsing="false" onAction="#loadScraperStage" styleClass="menuItem" text="Load Web Scraper Screen" />
+               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Exit">
+            <Menu mnemonicParsing="false" styleClass="menuItem" text="Exit">
               <items>
                 <MenuItem fx:id="exitProgramButton" mnemonicParsing="false" onAction="#exitProgram" styleClass="menuItem" text="Exit Program" />
               </items>
