@@ -46,33 +46,7 @@ public class UserInterface
 
 	public static boolean verifyUser(String username, String password)
 	{
-		/*
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter Username:");
-
-		username = scanner.nextLine();
-		
-		if (username.matches(USER))
-		{
-			System.out.println("Enter password:");
-
-			username = scanner.nextLine();
-			if (password.matches(PASSWORD))
-			{
-				System.out.println("Log In Successful!");
-			}
-		} else
-		{
-			System.out.println("Wrong username. Please try again.");
-		}
-		*/
-		
-		if (username.matches(USER) && password.matches(PASSWORD)) {
-			return true;
-		} else {
-			return false;
-		}
+		return username.matches(USER) && password.matches(PASSWORD);
 	}
 	
 	public static void exit()
