@@ -53,7 +53,6 @@ public class MainSceneController implements Initializable {
     	fadeTransition.setToValue(1);
     	fadeTransition.play();
     }
-
 	
     @FXML
     private void loadMarketStage(ActionEvent event) {
@@ -80,8 +79,4 @@ public class MainSceneController implements Initializable {
     private void exitProgram(ActionEvent event) {
     	UserInterface.exit();
     }
-
-	void runScraper() {
-		messageLabel.setText("Scraping");
-	}
 }
