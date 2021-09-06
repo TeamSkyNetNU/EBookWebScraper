@@ -17,7 +17,7 @@ public class DatabaseQueryOperations
 	public static final String SQL_SELECT_AMAZON = "SELECT * FROM db.amazon;";
 	public static final String SQL_SELECT_BARNES = "SELECT * FROM db.barnesnoble;";
 	public static final String SQL_SELECT_EBAY = "SELECT * FROM db.ebay;";
-	public static String SQL_SELECT = "SELECT * FROM mydb.inventory;";
+	public static String SQL_SELECT = "SELECT * FROM db.inventory;";
 
 	public static final String SQL_DROP_AMAZON = "DROP TABLE IF EXISTS amazon";
 	public static final String SQL_DROP_BARNES = "DROP TABLE IF EXISTS barnesnoble";

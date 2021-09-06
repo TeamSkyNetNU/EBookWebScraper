@@ -4,42 +4,42 @@ package databaseProject;
  * 
  *	This is the book product listing class that defines the attributes of each book.
  */
-public class BookProperties 
+public class BookProperties
 {
 	private int id;
-  	private String title;
-  	private String formattedPrice;
-	
-	public BookProperties() 
+	private String title;
+	private String formattedPrice;
+
+	public BookProperties()
 	{
 	}
-	
+
 	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(int id) 
+	public void setId(int id)
 	{
 		this.id = id;
 	}
-	
-	public String getTitle() 
+
+	public String getTitle()
 	{
 		return title;
 	}
 
-	public void setTitle(String title) 
+	public void setTitle(String title)
 	{
 		this.title = title;
 	}
 
-	public String getFormattedPrice() 
+	public String getFormattedPrice()
 	{
-    	return formattedPrice;
+		return formattedPrice;
 	}
 
-	public void setFormattedPrice(String formattedPrice) 
+	public void setFormattedPrice(String formattedPrice)
 	{
 		this.formattedPrice = formattedPrice;
 	}

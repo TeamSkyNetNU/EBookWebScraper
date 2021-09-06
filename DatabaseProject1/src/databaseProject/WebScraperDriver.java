@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
  */
 public class WebScraperDriver
 {
+
 	private static final String EBAY_BOOKS = "https://www.ebay.com/t/Books/261186/bn_16566585";
 	private static final String BARNES_NOBLE_BOOKS = "https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8";
 	private static final String AMAZON_BOOKS = "https://www.amazon.com/books-used-books-textbooks/b/"
@@ -42,9 +43,11 @@ public class WebScraperDriver
 		{
 			doc = Jsoup.connect(website).get();
 		} catch (IOException e)
+
 		{
 			throw new RuntimeException(e);
 		}
+
 
 		startMessage(website);
 
@@ -83,6 +86,7 @@ public class WebScraperDriver
 	 */
 	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
 	{
+		onlineBookSiteList.clear();
 		if (UserInterface.selection == 1)
 		{
 			onlineBookSiteList.add(AMAZON_BOOKS);
@@ -192,6 +196,7 @@ public class WebScraperDriver
 		if (website.contentEquals(EBAY_BOOKS))
 		{
 			PRODUCT_TITLE_CLASS = "title";
+
 		}
 		return PRODUCT_TITLE_CLASS;
 	}

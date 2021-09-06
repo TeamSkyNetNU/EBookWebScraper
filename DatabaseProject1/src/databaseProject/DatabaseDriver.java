@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /*
  * 
@@ -16,15 +20,63 @@ import java.util.List;
  */
 public class DatabaseDriver
 {
-	WebScraperDriver webScraper = new WebScraperDriver();
+	static WebScraperDriver webScraper = new WebScraperDriver();
 	DatabaseQueryOperations databaseOperations = new DatabaseQueryOperations();
+
 	private ArrayList<BigDecimal> bookPrices = new ArrayList<>();
 	private ArrayList<String> titlePriceQueriesList = new ArrayList<>();
+
+	private static Config cfg = new Config();
+	private static String dbName = cfg.getProperty("mDbName");
+	private static String dbUser = cfg.getProperty("mDbUser");
+	private static String dbPwd = cfg.getProperty("mDbPwd");
+	private static String dbHost = cfg.getProperty("mDbHost");
+
+	public static long hours;
+	public static long days;
+	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+	/*
+	 * This method sets the interval the user wants to do webscraping at if they
+	 * wish to do so, starting with a scraping session in 1 minute delay , then
+	 * taking in the parameter 'hours' for how many hours interval they want to
+	 * thew program to continue scraping, and 'days' for how many days they want the
+	 * interval scraping to continue. This happens in a seperate thread from the main
+	 * thread.
+	 */
+	public static void setUserIntervalForExtraction()
+	{
+		Runnable scrapeAtInterval = new Runnable()
+		{
+			public void run()
+			{
+				getBookProducts();
+			}
+		};
+
+		ScheduledFuture<?> bookGetter = scheduler.scheduleAtFixedRate(scrapeAtInterval, 1, hours, TimeUnit.HOURS);
+		scheduler.schedule(new Runnable()
+		{
+			public void run()
+			{
+				bookGetter.cancel(true);
+			}
+		}, days, TimeUnit.DAYS);
+	}
+
+	/*
+	 * This is called when the user wants to stop scraping via interval.
+	 */
+	private void stopInterval()
+	{
+
+		scheduler.shutdown();
+	}
 
 	/*
 	 * This method retrieves all extracted books from WebScraperDriver.
 	 */
-	void getBookProducts()
+	static void getBookProducts()
 	{
 		WebScraperDriver.verifySitesToExtract(WebScraperDriver.onlineBookSiteList);
 
@@ -42,13 +94,14 @@ public class DatabaseDriver
 	 * and Price. The reason for resetting them is because the Id(Primary Key)
 	 * cannot be overwritten and it causes SQL errors, therefore halting the program
 	 */
-	private void createConnection(List<BookProperties> books)
+	private static void createConnection(List<BookProperties> books)
 	{
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			Statement statement = connection.createStatement();
 
@@ -69,7 +122,7 @@ public class DatabaseDriver
 	/*
 	 * This method inserts data to the SQL DB
 	 */
-	private void transferToDatabase(Connection connection, List<BookProperties> books) throws SQLException
+	private static void transferToDatabase(Connection connection, List<BookProperties> books) throws SQLException
 	{
 		PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_INSERT);
 		for (BookProperties book : books)
@@ -84,14 +137,15 @@ public class DatabaseDriver
 
 	void queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException
 	{
+
 		try
 		{
 			BigDecimal fixedPrice = null;
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			DatabaseQueryOperations.bookSelection = book;
 
@@ -150,7 +204,7 @@ public class DatabaseDriver
 		titlePriceQueriesList.add("amazon");
 		titlePriceQueriesList.add("barnesnoble");
 		titlePriceQueriesList.add("ebay");
-
+		titlePriceQueriesList.add("inventory");
 	}
 
 	private void displayTableTitle(String tableTitle)
@@ -170,30 +224,38 @@ public class DatabaseDriver
 	}
 
 	/*
-	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from verifyTableViewed
+	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from
+	 * verifyTableViewed
 	 */
-	void queryDB()
+	public List<BookProperties> queryDB()
 	{
+		List<BookProperties> bookList = new ArrayList<>();
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://70.183.97.249:3306/db", "student", "student");
+			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
+			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();
+
 			while (result.next())
 			{
-				System.out.println(
-						String.format("Product:\n%s\n%s\n", result.getString("Title"), result.getString("Price")));
-//				System.out.println(result.getString("Id") + result.getString("Title") + result.getString("Price"));
-			}
+				BookProperties bookListing = new BookProperties();
 
+				bookListing.setTitle(result.getString("Title"));
+				bookListing.setFormattedPrice(result.getString("Price"));
+				bookListing.setId(Integer.parseInt(result.getString("Id")));
+
+				bookList.add(bookListing);
+
+			}
 		} catch (ClassNotFoundException | SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		return bookList;
 	}
 }
