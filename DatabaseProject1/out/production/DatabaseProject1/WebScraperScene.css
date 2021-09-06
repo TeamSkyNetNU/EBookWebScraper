@@ -1,0 +1,18 @@
+.toolBar {
+    -fx-background-color: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
+}
+
+.toolBar .button {
+    -fx-background-color: rgb(255, 73, 73);
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+}
+
+.toolBar .button .label {
+    -fx-text-fill: #fff;
+}
+
+.rootPane {
+    -fx-background-color: #fff;
+}

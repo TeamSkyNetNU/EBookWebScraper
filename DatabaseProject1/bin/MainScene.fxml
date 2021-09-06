@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" stylesheets="@MainScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.MainSceneController">
+   <top>
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" styleClass="menuBar" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu fx:id="dataMenuButton" mnemonicParsing="false" styleClass="menuText" text="View Database">
+               <items>
+                  <MenuItem fx:id="loadDataStageButton" mnemonicParsing="false" onAction="#loadDataStage" styleClass="menuItem" text="Load Website Data Screen" />
+               </items>
+            </Menu>
+            <Menu fx:id="marketMenuButton" mnemonicParsing="false" styleClass="menuText" text="Market Analysis">
+               <items>
+                  <MenuItem fx:id="loadMarketStageButton" mnemonicParsing="false" onAction="#loadMarketStage" styleClass="menuItem" text="Load Market Analysis Screen" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Scrape Websites">
+               <items>
+                  <MenuItem fx:id="loadScraperStageButton" mnemonicParsing="false" onAction="#loadScraperStage" styleClass="menuItem" text="Load Web Scraper Screen" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" styleClass="menuItem" text="Exit">
+              <items>
+                <MenuItem fx:id="exitProgramButton" mnemonicParsing="false" onAction="#exitProgram" styleClass="menuItem" text="Exit Program" />
+              </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <Label fx:id="messageLabel" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </BorderPane.margin>
+      </Label>
+   </bottom>
+</BorderPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@ViewDatabaseScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.ViewDatabaseSceneController">
+   <center>
+      <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="75.0" text="Book ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="350.0" text="Book Name" />
+          <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Book Price" />
+        </columns>
+      </TableView>
+   </center>
+   <top>
+      <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" styleClass="toolBar" BorderPane.alignment="CENTER">
+        <items>
+            <Button fx:id="showDataButton" mnemonicParsing="false" onAction="#showData" styleClass="Button" text="Show Data" />
+            <RadioButton fx:id="amazonRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Amazon Books">
+               <toggleGroup>
+                  <ToggleGroup fx:id="websiteToggleGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="ebayRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Ebay Books" toggleGroup="$websiteToggleGroup" />
+            <RadioButton fx:id="barnesRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Barnes &amp; Noble" toggleGroup="$websiteToggleGroup" />
+            <RadioButton fx:id="inventoryRadioButton" mnemonicParsing="false" onAction="#radioButtonSelected" text="Store Inventory" toggleGroup="$websiteToggleGroup" />
+        </items>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="150.0" />
+         </padding>
+      </ToolBar>
+   </top>
+</BorderPane>
