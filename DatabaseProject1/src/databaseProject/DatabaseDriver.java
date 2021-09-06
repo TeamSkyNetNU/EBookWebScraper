@@ -88,8 +88,8 @@ public class DatabaseDriver
 		System.out.println("Extraction Complete.");
 	}
 
-	void queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException {
-		
+	public List<BookProperties> queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException {
+		List<BookProperties> books = new ArrayList<>();
 		try {
 			BigDecimal fixedPrice = null;
 
@@ -103,7 +103,9 @@ public class DatabaseDriver
 			getQueriesList();
 
 			for (String tableTitle : titlePriceQueriesList) {
+				BookProperties bookListing = new BookProperties();
 				displayTableTitle(tableTitle);
+				bookListing.setSite(tableTitle);
 
 				PreparedStatement preparedStatement = connection.prepareStatement(
 						"SELECT Title, Price FROM " + tableTitle + " WHERE " + tableTitle + ".Title LIKE ?");
@@ -114,11 +116,15 @@ public class DatabaseDriver
 
 					System.out.println("Book: " + result.getString(1) + "\nPrice: " + result.getString("Price"));
 					String price = result.getString("Price");
+					bookListing.setTitle(result.getString(1));
+					bookListing.setFormattedPrice(price);
 					String bookPrice = price.replace("$", ""); // Strip $ symbol to convert into BigDecimal
 					fixedPrice = new BigDecimal(bookPrice);
 
 					bookPrices.add(fixedPrice);
 				}
+
+				books.add(bookListing);
 			}
 
 			if (lowestPriceRequested == true) {
@@ -131,6 +137,7 @@ public class DatabaseDriver
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return books;
 	}
 
 	private BigDecimal itemWithLowestCost(ArrayList<BigDecimal> bookPrices, BigDecimal fixedPrice)
@@ -162,13 +169,17 @@ public class DatabaseDriver
 		{
 			System.out.println("Amazon Books:");
 		}
-		if (tableTitle == "barnes")
+		if (tableTitle == "barnesnoble")
 		{
 			System.out.println("Barnes & Noble:");
 		}
 		if (tableTitle == "ebay")
 		{
 			System.out.println("Ebay Books:");
+		}
+		if (tableTitle == "inventory")
+		{
+			System.out.println("Your Inventory:");
 		}
 	}
 

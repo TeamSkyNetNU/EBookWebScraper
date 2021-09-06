@@ -38,17 +38,17 @@ public class DisplayBookData
 	
 	private void verifyTableViewed()
 	{
-		if (UserInterface.selection == 1)
-		{
+		if (UserInterface.selection == 1) {
 			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT_AMAZON;
 		}
-		if (UserInterface.selection == 2)
-		{
+		if (UserInterface.selection == 2) {
 			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT_BARNES;
 		}
-		if (UserInterface.selection == 3)
-		{
+		if (UserInterface.selection == 3) {
 			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT_EBAY;
+		}
+		if (UserInterface.selection == 8) {
+			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT;
 		}
 	}
 	

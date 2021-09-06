@@ -7,6 +7,7 @@ package databaseProject;
 public class BookProperties 
 {
 	private int id;
+	private String site;
   	private String title;
   	private String formattedPrice;
 	
@@ -43,4 +44,8 @@ public class BookProperties
 	{
 		this.formattedPrice = formattedPrice;
 	}
+
+	public String getSite() { return site; }
+
+	public void setSite(String site) { this.site = site; }
 }

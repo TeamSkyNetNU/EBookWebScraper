@@ -23,7 +23,7 @@ public class ViewDatabaseSceneController implements Initializable {
 		AMAZON(1),
 		BARNES(2),
 		EBAY(3),
-		INVENTORY(4);
+		INVENTORY(8);
 		
 		private final int siteNum;
 

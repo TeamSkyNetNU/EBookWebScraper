@@ -1,6 +1,8 @@
 package databaseProject;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -11,30 +13,25 @@ public class BookMarketAnalysis
 {
 	DatabaseDriver dataBaseDriver = new DatabaseDriver();
 
-	void beginMarketAnalysis()
-	{
+	/*void beginMarketAnalysis(){
 		getLowestPrice();
 	}
+	*/
 
-	private void getLowestPrice()
-	{
-		String bookSpecified = "";
+	public List<BookProperties> getLowestPrice(String bookSpecified) {
 		boolean lowestPriceRequested = true;
-		
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter book to compare:");
 
-		bookSpecified = scanner.nextLine();
+		List<BookProperties> books = new ArrayList<>();
 
-		try
-		{
-			dataBaseDriver.queryBook(bookSpecified, lowestPriceRequested);
-		} catch (ClassNotFoundException | SQLException e)
-		{
+		try {
+			books = dataBaseDriver.queryBook(bookSpecified, lowestPriceRequested);
+		}
+		catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		return books;
 	}
 
 	// TODO Price Recommendation, view Price
