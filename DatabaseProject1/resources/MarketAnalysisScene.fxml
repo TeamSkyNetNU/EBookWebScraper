@@ -16,27 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@MarketAnalysisScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.MarketAnalysisSceneController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="topBar" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Enter a book to compare:">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="bookSearchTextField" prefWidth="400.0">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </TextField>
-            <Button fx:id="bookSearchSubmitButton" mnemonicParsing="false" onAction="#compareBook" text="Submit">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </top>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="550.0" styleClass="rightPane" BorderPane.alignment="CENTER">
          <children>
@@ -120,4 +99,25 @@
          </children>
       </GridPane>
    </left>
+   <top>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="topBar" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Enter a book to compare:">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="bookSearchTextField" prefWidth="400.0">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="bookSearchSubmitButton" mnemonicParsing="false" onAction="#compareBook" text="Submit">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

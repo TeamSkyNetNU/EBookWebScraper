@@ -31,7 +31,7 @@
             <children>
                 <Label text="Search for a book:">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="14.0" />
                     </font>
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -39,7 +39,7 @@
                 </Label>
                 <TextField>
                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets left="15.0" right="15.0" />
                     </VBox.margin>
                 </TextField>
                 <Button mnemonicParsing="false" styleClass="Button" text="Search">
