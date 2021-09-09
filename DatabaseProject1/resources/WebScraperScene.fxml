@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="rootPane" stylesheets="@WebScraperScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="databaseProject.WebScraperSceneController">
+    <left>
+        <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </left>
     <top>
         <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" styleClass="toolBar" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -24,7 +27,4 @@
          </items>
         </ToolBar>
     </top>
-   <left>
-      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
 </BorderPane>

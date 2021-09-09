@@ -48,7 +48,7 @@ public class DisplayBookData
 			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT_EBAY;
 		}
 		if (UserInterface.selection == 8) {
-			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT;
+			DatabaseQueryOperations.SQL_SELECT = DatabaseQueryOperations.SQL_SELECT_INVENTORY;
 		}
 	}
 	

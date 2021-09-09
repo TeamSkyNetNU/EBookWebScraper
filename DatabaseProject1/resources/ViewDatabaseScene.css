@@ -3,7 +3,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
 }
 
-.toolBar .Button {
+.Button {
     -fx-background-color: rgb(255, 73, 73);
     -fx-text-fill: #fff;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
@@ -64,4 +64,10 @@
 .radio-button .dot {
     -fx-background-radius: 15px;
     -fx-padding: 6px;
+}
+
+.searchPane {
+    -fx-background-color: #fff;
+    -fx-border-color: #ccc;
+    -fx-border-width: 0 0 0 1;
 }

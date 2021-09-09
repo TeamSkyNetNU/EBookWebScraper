@@ -3,6 +3,7 @@ package databaseProject;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+
 /*
  * 
  *  This class takes user input selection on how they want to run the program.
