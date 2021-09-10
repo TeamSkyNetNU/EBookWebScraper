@@ -64,9 +64,16 @@ public class MarketAnalysisSceneController implements Initializable {
 
         List<BookProperties> books;
     	BookMarketAnalysis bookDisplay = new BookMarketAnalysis();
-    	books = bookDisplay.getLowestPrice(bookSpecified);
-        updatePrices(books);
-        updateChart();
+
+    	try {
+            books = bookDisplay.getLowestPrice(bookSpecified);
+            updatePrices(books);
+            updateChart();
+        }
+    	catch (Exception ex) {
+    	    bookTitleLabel.setText(bookSpecified + " was not found in database");
+    	    clearPrices();
+        }
     }
     
     @Override

@@ -1,6 +1,8 @@
 package databaseProject;
 
+import java.awt.print.Book;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,25 +54,21 @@ public class DisplayBookData
 		}
 	}
 	
-	public void searchBook(String bookSpecified) 
+	public List<BookProperties> searchBook(String bookSpecified)
 	{
-		//String bookSpecified = "";
+		List<BookProperties> books = new ArrayList<>();
 		boolean lowestPriceRequested = false;
-		
-		/*
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter book to search:");
-		
-		bookSpecified = scanner.nextLine();
-		*/
-		try {
-			databaseDriver.queryBook(bookSpecified, lowestPriceRequested);
+
+		try
+		{
+			books = databaseDriver.queryBook(bookSpecified, lowestPriceRequested);
 		} 
-		catch (ClassNotFoundException | SQLException e) {
+		catch (ClassNotFoundException | SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		return books;
 	}
 }
