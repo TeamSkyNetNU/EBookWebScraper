@@ -46,7 +46,7 @@ public class WebScraperDriver
 		}
 
 
-		startMessage(website);
+		//startMessage(website);
 
 		verifySiteTables(website);
 		PRODUCT_CARD_CLASS = verifyProductCard(website);

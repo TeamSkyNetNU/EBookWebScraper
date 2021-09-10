@@ -65,7 +65,7 @@ public class DatabaseDriver
 	/*
 	 * This is called when the user wants to stop scraping via interval.
 	 */
-	private void stopInterval()
+	public static void stopInterval()
 	{
 		scheduler.shutdown();
 	}
@@ -129,7 +129,7 @@ public class DatabaseDriver
 			preparedStatement.setString(3, book.getFormattedPrice());
 			preparedStatement.execute();
 		}
-		System.out.println("Extraction Complete.");
+		//System.out.println("Extraction Complete.");
 	}
 
 	public List<BookProperties> queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException {
