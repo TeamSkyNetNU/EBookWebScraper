@@ -68,6 +68,7 @@ public class DatabaseDriver
 	public static void stopInterval()
 	{
 		scheduler.shutdown();
+		System.out.println("Scheduler stopped");
 	}
 
 	/*

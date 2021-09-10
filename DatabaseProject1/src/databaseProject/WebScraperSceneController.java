@@ -2,12 +2,15 @@ package databaseProject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.ScheduledService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +34,10 @@ public class WebScraperSceneController implements Initializable {
     private Button scrapeIntervalButton;
 
     @FXML
-    private DatabaseDriver databaseDriver;
+    private TextField setHoursTextField;
+
+    @FXML
+    private TextField setDaysTextField;
 
     @FXML
     private ListView<String> listView;
@@ -43,9 +49,8 @@ public class WebScraperSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        databaseDriver = new DatabaseDriver();
         listView.setItems(systemMessages);
-        scrapeIntervalButton.setDisable(true);
+        //scrapeIntervalButton.setDisable(true);
     }
 
     @FXML
@@ -90,11 +95,21 @@ public class WebScraperSceneController implements Initializable {
     void toggleScrapeInterval(ActionEvent event) {
         if (intervalToggle) {
             UserInterface.selection = 7;
-            scrapeIntervalButton.setText("Cancel Interval Scraping");
-            scrapeIntervalButton.getStyleClass().clear();
-            scrapeIntervalButton.getStyleClass().add("intervalToggleFalse");
-            DatabaseDriver.setUserIntervalForExtraction();
-            systemMessages.add("Now Scraping websites hourly");
+            try {
+                DatabaseDriver.hours = Long.parseLong(setHoursTextField.getText());
+                DatabaseDriver.days = Long.parseLong(setDaysTextField.getText());
+                systemMessages.add("Now Scraping websites every "
+                        + DatabaseDriver.hours + " hour(s) for "
+                        + DatabaseDriver.days + " days");
+                scrapeIntervalButton.setText("Cancel Interval Scraping");
+                scrapeIntervalButton.getStyleClass().clear();
+                scrapeIntervalButton.getStyleClass().add("intervalToggleFalse");
+                DatabaseDriver.setUserIntervalForExtraction();
+                intervalToggle = !intervalToggle;
+            }
+            catch (NumberFormatException ex) {
+                systemMessages.add("Only numbers are accepted for Scrape Interval");
+            }
         }
         else {
             scrapeIntervalButton.setText("Scrape at an Interval");
@@ -102,9 +117,9 @@ public class WebScraperSceneController implements Initializable {
             scrapeIntervalButton.getStyleClass().add("intervalToggleTrue");
             DatabaseDriver.stopInterval();
             systemMessages.add("Stopped hourly scraping");
+            intervalToggle = !intervalToggle;
         }
 
         listView.scrollTo(listView.getItems().size());
-        intervalToggle = !intervalToggle;
     }
 }

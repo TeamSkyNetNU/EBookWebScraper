@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -27,11 +29,31 @@
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin></CheckBox>
-            <Button fx:id="beginScrapingButton" mnemonicParsing="false" onAction="#beginScraping" text="Scrape Manually" styleClass="intervalToggleTrue">
+            <Button fx:id="beginScrapingButton" mnemonicParsing="false" onAction="#beginScraping" styleClass="intervalToggleTrue" text="Scrape Manually">
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin></Button>
-            <Button fx:id="scrapeIntervalButton" mnemonicParsing="false" onAction="#toggleScrapeInterval" text="Scrape at an Interval" styleClass="intervalToggleTrue">
+            <Label text="Set Hourly Scrape Interval:">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="setHoursTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Set How Many Days to Run Interval:">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="setDaysTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="scrapeIntervalButton" mnemonicParsing="false" onAction="#toggleScrapeInterval" styleClass="intervalToggleTrue" text="Scrape at an Interval">
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin>
