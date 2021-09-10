@@ -26,22 +26,22 @@ public class DatabaseQueryOperations
 	public static String SQL_DROP_TABLE = "DROP TABLE IF EXISTS inventory";
 	
 	public static final String SQL_AMAZON_CREATE = "CREATE TABLE IF NOT EXISTS amazon"
-			+ "(Id INT NOT NULL, " 
+			+ "(Id INT NOT NULL AUTO_INCREMENT, "
 			+ "Title VARCHAR(1000) NULL," 
 			+ "Price VARCHAR(45) NULL, "
 			+ "PRIMARY KEY ( Id ))";
 	public static final String SQL_BARNES_CREATE = "CREATE TABLE IF NOT EXISTS barnesnoble"
-			+ "(Id INT NOT NULL, " 
+			+ "(Id INT NOT NULL AUTO_INCREMENT, "
 			+ "Title VARCHAR(1000) NULL," 
 			+ "Price VARCHAR(45) NULL, "
 			+ "PRIMARY KEY ( Id ))";
 	public static final String SQL_EBAY_CREATE = "CREATE TABLE IF NOT EXISTS ebay"
-			+ "(Id INT NOT NULL, " 
+			+ "(Id INT NOT NULL AUTO_INCREMENT, "
 			+ "Title VARCHAR(1000) NULL," 
 			+ "Price VARCHAR(45) NULL, "
 			+ "PRIMARY KEY ( Id ))";
 	public static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS inventory "
-			+ "(Id INT NOT NULL, " 
+			+ "(Id INT NOT NULL AUTO_INCREMENT, "
 			+ "Title VARCHAR(1000) NULL," 
 			+ "Price VARCHAR(45) NULL, "
 			+ "PRIMARY KEY ( Id ))";
