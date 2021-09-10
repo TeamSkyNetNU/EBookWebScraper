@@ -102,6 +102,7 @@ public class ViewDatabaseSceneController implements Initializable {
 
     @FXML
     void showData(ActionEvent event) throws ClassNotFoundException, SQLException {
+        bookData.clear();
     	tableView.setItems(getBookData());
     }
     
