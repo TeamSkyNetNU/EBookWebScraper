@@ -3,6 +3,8 @@ package databaseProject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +40,25 @@ public class MainSceneController implements Initializable {
 
 	@FXML
 	private Label messageLabel;
+
+	private BorderPane viewDatabaseScene;
+	private BorderPane marketAnalysisScene;
+	private BorderPane webScraperScene;
 	
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
     	rootPane.setOpacity(0);
     	makeFadeInTransition();
+
+		FxmlLoader object = new FxmlLoader();
+		viewDatabaseScene = object.getPage("ViewDatabaseScene");
+		viewDatabaseScene.setVisible(false);
+
+		marketAnalysisScene = object.getPage("MarketAnalysisScene");
+		marketAnalysisScene.setVisible(false);
+
+		webScraperScene = object.getPage("WebScraperScene");
+		webScraperScene.setVisible(false);
     }
 	
 	private void makeFadeInTransition() {
@@ -56,23 +72,32 @@ public class MainSceneController implements Initializable {
 	
     @FXML
     private void loadMarketStage(ActionEvent event) {
-    	FxmlLoader object = new FxmlLoader();
-    	BorderPane view = object.getPage("MarketAnalysisScene");
-    	rootPane.setCenter(view);
+		if (!marketAnalysisScene.isVisible()) {
+			webScraperScene.setVisible(false);
+			viewDatabaseScene.setVisible(false);
+			rootPane.setCenter(marketAnalysisScene);
+			marketAnalysisScene.setVisible(true);
+		}
     }
 	
     @FXML
     private void loadDataStage(ActionEvent event) {
-    	FxmlLoader object = new FxmlLoader();
-    	BorderPane view = object.getPage("ViewDatabaseScene");
-    	rootPane.setCenter(view);
+		if (!viewDatabaseScene.isVisible()) {
+			webScraperScene.setVisible(false);
+			marketAnalysisScene.setVisible(false);
+			rootPane.setCenter(viewDatabaseScene);
+			viewDatabaseScene.setVisible(true);
+		}
     }
 
     @FXML
 	private void loadScraperStage(ActionEvent event) {
-		FxmlLoader object = new FxmlLoader();
-		BorderPane view = object.getPage("WebScraperScene");
-		rootPane.setCenter(view);
+		if (!webScraperScene.isVisible()) {
+			marketAnalysisScene.setVisible(false);
+			viewDatabaseScene.setVisible(false);
+			rootPane.setCenter(webScraperScene);
+			webScraperScene.setVisible(true);
+		}
 	}
     
     @FXML

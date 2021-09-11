@@ -22,7 +22,6 @@ public class DatabaseDriver
 {
 	static WebScraperDriver webScraper = new WebScraperDriver();
 	DatabaseQueryOperations databaseOperations = new DatabaseQueryOperations();
-	private ArrayList<BigDecimal> bookPrices = new ArrayList<>();
 	private ArrayList<String> titlePriceQueriesList = new ArrayList<>();
 	private static Config cfg = new Config();
 	private static String dbName = cfg.getProperty("mDbName");
@@ -32,7 +31,7 @@ public class DatabaseDriver
 
 	public static long hours;
 	public static long days;
-	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private static ScheduledFuture<?> bookGetter;
 
 	/*
 	 * This method sets the interval the user wants to do webscraping at if they
@@ -52,14 +51,16 @@ public class DatabaseDriver
 			}
 		};
 
-		ScheduledFuture<?> bookGetter = scheduler.scheduleAtFixedRate(scrapeAtInterval, 1, hours, TimeUnit.HOURS);
+		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+		ScheduledFuture<?> bookGetter = scheduler.scheduleAtFixedRate(scrapeAtInterval, 0, hours, TimeUnit.SECONDS);
 		scheduler.schedule(new Runnable()
 		{
 			public void run()
 			{
 				bookGetter.cancel(true);
 			}
-		}, days, TimeUnit.DAYS);
+		}, days, TimeUnit.MINUTES);
 	}
 
 	/*
@@ -67,7 +68,7 @@ public class DatabaseDriver
 	 */
 	public static void stopInterval()
 	{
-		scheduler.shutdown();
+		bookGetter.cancel(true);
 		System.out.println("Scheduler stopped");
 	}
 
@@ -127,7 +128,7 @@ public class DatabaseDriver
 		{
 			preparedStatement.setInt(1, book.getId());
 			preparedStatement.setString(2, book.getTitle());
-			preparedStatement.setString(3, book.getFormattedPrice());
+			preparedStatement.setDouble(3, book.getFormattedPrice());
 			preparedStatement.execute();
 		}
 		//System.out.println("Extraction Complete.");
@@ -159,23 +160,18 @@ public class DatabaseDriver
 				while (result.next())
 				{
 
-					System.out.println("Book: " + result.getString(1) + "\nPrice: " + result.getString("Price"));
-					String price = result.getString("Price");
+					Double price = Double.parseDouble(result.getString("Price"));
 					bookListing.setTitle(result.getString(1));
 					bookListing.setFormattedPrice(price);
-					String bookPrice = price.replace("$", ""); // Strip $ symbol to convert into BigDecimal
-					fixedPrice = new BigDecimal(bookPrice);
 
-					bookPrices.add(fixedPrice);
+					//bookPrices.add(price);
 				}
 
 				books.add(bookListing);
 			}
 
 			if (lowestPriceRequested == true) {
-				fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
-
-				System.out.println("$" + fixedPrice + " is the lowest price for this book!");
+				//fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
 			}
 
 		} 
@@ -244,9 +240,11 @@ public class DatabaseDriver
 			
 			while (result.next()) {
 				BookProperties bookListing = new BookProperties();
-				
+
+				Double price = Double.parseDouble(result.getString("Price"));
+
 				bookListing.setTitle(result.getString("Title"));
-				bookListing.setFormattedPrice(result.getString("Price"));
+				bookListing.setFormattedPrice(price);
 				bookListing.setId(Integer.parseInt(result.getString("Id")));
 				
 				bookList.add(bookListing);

@@ -29,6 +29,10 @@
     -fx-background-color: transparent;
 }
 
+.bookNumColumn .table-cell {
+    -fx-alignment: CENTER;
+}
+
 .table-row-cell:even {
     -fx-background-color: #ECECEC;
 }

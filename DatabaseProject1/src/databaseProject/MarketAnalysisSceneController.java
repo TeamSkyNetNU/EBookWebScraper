@@ -71,18 +71,13 @@ public class MarketAnalysisSceneController implements Initializable {
             updateChart();
         }
     	catch (Exception ex) {
-    	    bookTitleLabel.setText(bookSpecified + " was not found in database");
+    	    bookTitleLabel.setText(bookSpecified + " was not found on any website");
     	    clearPrices();
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	/*
-    	xAxis = new CategoryAxis();
-    	yAxis = new NumberAxis();
-    	barChart = new BarChart<String,Number>(xAxis,yAxis);
-    	*/
     	
     	amazonPrice = 0;
     	ebayPrice = 0;
@@ -124,25 +119,25 @@ public class MarketAnalysisSceneController implements Initializable {
     void updatePrices(List<BookProperties> books) {
         clearPrices();
     	for (BookProperties book : books) {
-            if (book.getFormattedPrice() != null) {
+            if (book.getFormattedPrice() > 0) {
                 switch (book.getSite()) {
                     case "amazon":
-                        amazonPrice = Double.parseDouble(book.getFormattedPrice());
+                        amazonPrice = book.getFormattedPrice();
                         amazonPriceLabel.setText("$" + amazonPrice);
                         changeLabelColor(amazonPriceLabel, amazonPrice);
                         break;
                     case "barnesnoble":
-                        barnesPrice = Double.parseDouble(book.getFormattedPrice());
+                        barnesPrice = book.getFormattedPrice();
                         barnesPriceLabel.setText("$" + barnesPrice);
                         changeLabelColor(barnesPriceLabel, barnesPrice);
                         break;
                     case "ebay":
-                        ebayPrice = Double.parseDouble(book.getFormattedPrice());
+                        ebayPrice = book.getFormattedPrice();
                         ebayPriceLabel.setText("$" + ebayPrice);
                         changeLabelColor(ebayPriceLabel, ebayPrice);
                         break;
                     case "inventory":
-                        yourPrice = Double.parseDouble(book.getFormattedPrice());
+                        yourPrice = book.getFormattedPrice();
                         yourPriceLabel.setText("$" + yourPrice);
                         break;
                     default:

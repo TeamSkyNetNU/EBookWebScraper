@@ -20,9 +20,9 @@
    <center>
       <TableView fx:id="tableView" BorderPane.alignment="CENTER">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="75.0" text="Book ID" />
-          <TableColumn fx:id="nameColumn" prefWidth="350.0" text="Book Name" />
-          <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Book Price" />
+            <TableColumn fx:id="idColumn" prefWidth="91.0" styleClass="bookNumColumn" text="Book ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="385.0" text="Book Name" />
+          <TableColumn fx:id="priceColumn" prefWidth="126.0" styleClass="bookNumColumn" text="Book Price (in $)" />
         </columns>
       </TableView>
    </center>

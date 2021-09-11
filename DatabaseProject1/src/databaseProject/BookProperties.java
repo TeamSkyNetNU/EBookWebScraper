@@ -1,5 +1,7 @@
 package databaseProject;
 
+import java.math.BigDecimal;
+
 /*
  * 
  *	This is the book product listing class that defines the attributes of each book.
@@ -9,7 +11,7 @@ public class BookProperties
 	private int id;
 	private String site;
   	private String title;
-  	private String formattedPrice;
+  	private double formattedPrice;
 	
 	public BookProperties() 
 	{
@@ -35,12 +37,12 @@ public class BookProperties
 		this.title = title;
 	}
 
-	public String getFormattedPrice() 
+	public double getFormattedPrice()
 	{
     	return formattedPrice;
 	}
 
-	public void setFormattedPrice(String formattedPrice) 
+	public void setFormattedPrice(double formattedPrice)
 	{
 		this.formattedPrice = formattedPrice;
 	}

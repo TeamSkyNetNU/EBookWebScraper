@@ -1,5 +1,6 @@
 package databaseProject;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class ViewDatabaseSceneController implements Initializable {
     private TableColumn<BookProperties, String> nameColumn;
     
     @FXML
-    private TableColumn<BookProperties, String> priceColumn;
+    private TableColumn<BookProperties, Double> priceColumn;
 
     @FXML
     private Button showDataButton;
@@ -111,7 +112,7 @@ public class ViewDatabaseSceneController implements Initializable {
     	
     	idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
-    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("formattedPrice"));
+    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Double>("formattedPrice"));
     	
     	amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
     	ebayRadioButton.setUserData(WebsiteChoice.EBAY);
@@ -156,7 +157,7 @@ public class ViewDatabaseSceneController implements Initializable {
         }
 
         if (!atLeastOneResult) {
-            searchResultLabel.setText(searchBookTextField.getText() + " was not found");
+            searchResultLabel.setText(searchBookTextField.getText() + " was not found on any website");
         }
     }
 

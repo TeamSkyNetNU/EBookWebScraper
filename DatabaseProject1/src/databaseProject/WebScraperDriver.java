@@ -46,7 +46,7 @@ public class WebScraperDriver
 		}
 
 
-		//startMessage(website);
+		startMessage(website);
 
 		verifySiteTables(website);
 		PRODUCT_CARD_CLASS = verifyProductCard(website);
@@ -63,7 +63,8 @@ public class WebScraperDriver
 			PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
 			Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
 			if (!priceElements.isEmpty()) {
-				bookListing.setFormattedPrice(formatPriceString(priceElements.get(0).text()));
+				Double price = Double.parseDouble(formatPriceString(priceElements.get(0).text()));
+				bookListing.setFormattedPrice(price);
 			}
 
 			count++;

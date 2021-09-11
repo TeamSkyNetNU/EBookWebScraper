@@ -13,29 +13,12 @@ import java.util.Scanner;
 public class DisplayBookData 
 {
 	DatabaseDriver databaseDriver = new DatabaseDriver();
-	
-	void beginDisplay()
-	{
-		viewDB();
-		
-		//searchBook();
-	}
-	
+
 	public List<BookProperties> viewDB()
 	{
 		verifyTableViewed();
 	
 		return databaseDriver.queryDB();
-		
-//		String website = null;
-//		WebScraperDriver webScraper = new WebScraperDriver();
-//		List<BookProperties> products = webScraper.extractProducts(website);
-//		
-//	    for (BookProperties product : products) 
-//        {
-//            System.out.println(String.format("Product:\n%s\n%s\n", product.getTitle(), 
-//                    		product.getFormattedPrice()));
-//        }
 	}
 	
 	private void verifyTableViewed()

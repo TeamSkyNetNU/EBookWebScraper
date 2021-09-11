@@ -3,10 +3,12 @@ package databaseProject;
 import javafx.concurrent.Task;
 
 public class WebScraperTask extends Task<String> {
-    protected String call() {
-        DatabaseDriver databaseDriver = new DatabaseDriver();
+    @Override
+    protected String call() throws Exception {
+        System.out.println("Task Started");
         websiteSystemMessage();
-        databaseDriver.getBookProducts();
+        DatabaseDriver.getBookProducts();
+        System.out.println("Task Completed");
         return "Extraction Complete";
     }
 

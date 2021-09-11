@@ -29,7 +29,7 @@
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin></CheckBox>
-            <Button fx:id="beginScrapingButton" mnemonicParsing="false" onAction="#beginScraping" styleClass="intervalToggleTrue" text="Scrape Manually">
+            <Button fx:id="beginScrapingButton" mnemonicParsing="false" onAction="#beginScraping" text="Scrape Manually">
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin></Button>
@@ -53,7 +53,12 @@
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="scrapeIntervalButton" mnemonicParsing="false" onAction="#toggleScrapeInterval" styleClass="intervalToggleTrue" text="Scrape at an Interval">
+            <Button fx:id="scrapeIntervalButton" mnemonicParsing="false" onAction="#startScrapeInterval" text="Scrape at an Interval">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="cancelScrapeIntervalButton" mnemonicParsing="false" onAction="#cancelScrapeInterval" styleClass="cancelScrapeInterval" text="Cancel Interval Scraping">
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin>
