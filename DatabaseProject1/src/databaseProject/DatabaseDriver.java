@@ -241,7 +241,11 @@ public class DatabaseDriver
 			while (result.next()) {
 				BookProperties bookListing = new BookProperties();
 
-				Double price = Double.parseDouble(result.getString("Price"));
+				double price = 0.0;
+
+				if (!result.getString("Price").equals("")) {
+					price = Double.parseDouble(result.getString("Price"));
+				}
 
 				bookListing.setTitle(result.getString("Title"));
 				bookListing.setFormattedPrice(price);

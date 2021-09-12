@@ -1,16 +1,25 @@
 .toolBar {
-    -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
+    -fx-background-color: rgb(8, 151, 247);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 6);
+}
+
+.radio-button {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .Button {
     -fx-background-color: rgb(255, 73, 73);
     -fx-text-fill: #fff;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .toolBar .Button .label {
     -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .table-view {
@@ -29,7 +38,7 @@
     -fx-background-color: transparent;
 }
 
-.bookNumColumn .table-cell {
+.table-cell {
     -fx-alignment: CENTER;
 }
 
@@ -71,7 +80,13 @@
 }
 
 .searchPane {
-    -fx-background-color: #fff;
+    -fx-background-color: rgb(48, 173, 246);
     -fx-border-color: #ccc;
     -fx-border-width: 0 0 0 1;
+}
+
+.searchPane .label {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }

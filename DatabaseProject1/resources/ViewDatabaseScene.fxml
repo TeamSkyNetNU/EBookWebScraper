@@ -31,7 +31,7 @@
             <children>
                 <Label text="Search for a book:">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="14.0" />
                     </font>
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -100,7 +100,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="searchResultLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+                  <Label fx:id="searchResultLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER"/>
                </children>
                 </GridPane>
             </children>

@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@MarketAnalysisScene.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="databaseProject.MarketAnalysisSceneController">
    <center>
@@ -50,22 +51,22 @@
                </GridPane.margin></Label>
             <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Amazon's Price:">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="amazon-label" text="Amazon's Price:">
                      <VBox.margin>
                         <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Ebay's Price:">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="ebay-label" text="Ebay's Price:">
                      <VBox.margin>
                         <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Barnes &amp; Noble's Price:">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="barnes-label" text="Barnes &amp; Noble's Price:">
                      <VBox.margin>
                         <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Your Price:">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="inventory-label" text="Your Price:">
                      <VBox.margin>
                         <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </VBox.margin>
@@ -106,6 +107,9 @@
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <TextField fx:id="bookSearchTextField" prefWidth="400.0">
                <HBox.margin>

@@ -2,15 +2,25 @@
     -fx-background-color: #fff;
 }
 
+.label {
+    -fx-font-weight: 700;
+}
+
 .topBar {
-    -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
+    -fx-background-color: rgb(8, 151, 247);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 6);
+}
+
+.topBar .label {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 1, 1);
 }
 
 .topBar .button {
     -fx-background-color: rgb(255, 73, 73);
     -fx-text-fill: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .grid-pane {
@@ -44,4 +54,24 @@
 .data3.chart-bar {
     -fx-background-color:rgb(21, 182, 0);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 5, -1);
+}
+
+.amazon-label {
+    -fx-text-fill: rgb(255, 174, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 3);
+}
+
+.ebay-label {
+    -fx-text-fill: rgb(8, 151, 247);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 3);
+}
+
+.barnes-label {
+    -fx-text-fill: rgb(255, 73, 73);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 3);
+}
+
+.inventory-label {
+    -fx-text-fill: rgb(21, 182, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 3);
 }

@@ -1,10 +1,14 @@
 .toolBar {
-    -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 3);
+    -fx-background-color: rgb(8, 151, 247);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.212), 10, 0, 0, 6);
 }
 
 .toolBar .button .label {
     -fx-text-fill: #fff;
+}
+
+.label {
+    -fx-font-weight: 700;
 }
 
 .rootPane {
@@ -12,21 +16,34 @@
 }
 
 .leftPane {
-    -fx-background-color: #fff;
+    -fx-background-color: rgb(48, 173, 246);
     -fx-border-color: #ccc;
     -fx-border-width: 0 1 0 0;
+}
+
+.leftPane .label {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 4, 0, 1, 1);
+    -fx-font-weight: 700;
+}
+
+.check-box {
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .button {
     -fx-background-color: rgb(255, 73, 73);
     -fx-text-fill: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 4, 0, 1, 1);
+    -fx-font-weight: 700;
 }
 
 .cancelScrapeInterval {
     -fx-background-color: #fff;
     -fx-text-fill: rgb(255, 73, 73);
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 1, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 4, 0, 1, 1);
 }
 
 .centerPane {

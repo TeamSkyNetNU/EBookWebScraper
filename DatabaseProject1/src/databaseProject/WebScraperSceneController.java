@@ -101,7 +101,7 @@ public class WebScraperSceneController implements Initializable {
 
             service1 = new ScraperScheduledService();
 
-            service1.setPeriod(Duration.seconds(hours));
+            service1.setPeriod(Duration.hours(hours));
 
             service1.start();
 

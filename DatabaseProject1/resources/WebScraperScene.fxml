@@ -43,9 +43,14 @@
                   <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Set How Many Days to Run Interval:">
+            <Label text="Set How Many Days">
                <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  <Insets left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="to Run Interval:">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="setDaysTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0">

@@ -34,11 +34,4 @@
          </menus>
       </MenuBar>
    </top>
-   <bottom>
-      <Label fx:id="messageLabel" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </BorderPane.margin>
-      </Label>
-   </bottom>
 </BorderPane>
