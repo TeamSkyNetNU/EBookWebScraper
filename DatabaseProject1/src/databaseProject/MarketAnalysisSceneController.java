@@ -102,8 +102,7 @@ public class MarketAnalysisSceneController implements Initializable {
     	
     	barChart.getData().add(series1);
     }
-    
-    // TODO: complete function to update Chart
+
     void updateChart() {
         series1.getData().clear();
         barChart.getData().clear();
@@ -114,8 +113,7 @@ public class MarketAnalysisSceneController implements Initializable {
 
         barChart.getData().add(series1);
     }
-    
-    // TODO: complete function to update Prices
+
     void updatePrices(List<BookProperties> books) {
         clearPrices();
     	for (BookProperties book : books) {
@@ -123,22 +121,22 @@ public class MarketAnalysisSceneController implements Initializable {
                 switch (book.getSite()) {
                     case "amazon":
                         amazonPrice = book.getFormattedPrice();
-                        amazonPriceLabel.setText("$" + amazonPrice);
+                        amazonPriceLabel.setText("$ " + UserInterface.formatPrice(amazonPrice));
                         changeLabelColor(amazonPriceLabel, amazonPrice);
                         break;
                     case "barnesnoble":
                         barnesPrice = book.getFormattedPrice();
-                        barnesPriceLabel.setText("$" + barnesPrice);
+                        barnesPriceLabel.setText("$ " + UserInterface.formatPrice(barnesPrice));
                         changeLabelColor(barnesPriceLabel, barnesPrice);
                         break;
                     case "ebay":
                         ebayPrice = book.getFormattedPrice();
-                        ebayPriceLabel.setText("$" + ebayPrice);
+                        ebayPriceLabel.setText("$ " + UserInterface.formatPrice(ebayPrice));
                         changeLabelColor(ebayPriceLabel, ebayPrice);
                         break;
                     case "inventory":
                         yourPrice = book.getFormattedPrice();
-                        yourPriceLabel.setText("$" + yourPrice);
+                        yourPriceLabel.setText("$ " + UserInterface.formatPrice(yourPrice));
                         break;
                     default:
                         break;

@@ -49,7 +49,11 @@ public class UserInterface
 	{
 		return username.matches(USER) && password.matches(PASSWORD);
 	}
-	
+
+	public static String formatPrice(double price) {
+		return String.format("%.2f", price);
+	}
+
 	public static void exit()
 	{
 		System.exit(0);

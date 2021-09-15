@@ -165,19 +165,19 @@ public class ViewDatabaseSceneController implements Initializable {
         switch (searchResult.getSite()) {
             case ("amazon"):
                 amazonSearchLabel.setText("Amazon's Price:");
-                amazonSearchPriceLabel.setText("$" + searchResult.getFormattedPrice());
+                amazonSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
                 break;
             case ("ebay"):
                 ebaySearchLabel.setText("Ebay's Price:");
-                ebaySearchPriceLabel.setText("$" + searchResult.getFormattedPrice());
+                ebaySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
                 break;
             case ("barnesnoble"):
                 barnesSearchLabel.setText("Barnes & Noble's Price:");
-                barnesSearchPriceLabel.setText("$" + searchResult.getFormattedPrice());
+                barnesSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
                 break;
             case ("inventory"):
                 inventorySearchLabel.setText("Your Price:");
-                inventorySearchPriceLabel.setText("$" + searchResult.getFormattedPrice());
+                inventorySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
                 break;
             default:
                 break;
