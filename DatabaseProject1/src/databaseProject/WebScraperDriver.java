@@ -194,9 +194,9 @@ public class WebScraperDriver
 	}
 
 	private String formatTitle(String title) {
-		if (title.contains("by")) {
-			int byIndex = title.indexOf("by");
-			title = title.substring(0, byIndex - 1);
+		if (title.contains(" by ")) {
+			int byIndex = title.indexOf(" by ");
+			title = title.substring(0, byIndex);
 		}
 
 		return title;
