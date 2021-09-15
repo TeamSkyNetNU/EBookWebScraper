@@ -1,6 +1,8 @@
 package databaseProject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,14 +59,16 @@ public class WebScraperDriver
 			PRODUCT_TITLE_CLASS = verifyProductTitle(website);
 			Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
 			if (!titleElements.isEmpty()) {
-				bookListing.setTitle(titleElements.get(0).text());
+				String title = formatTitle(titleElements.get(0).text());
+				bookListing.setTitle(title);
 			}
 
 			PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
 			Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
 			if (!priceElements.isEmpty()) {
 				Double price = Double.parseDouble(formatPriceString(priceElements.get(0).text()));
-				bookListing.setFormattedPrice(price);
+				BigDecimal bdPrice = new BigDecimal(price).setScale(2, RoundingMode.HALF_DOWN);
+				bookListing.setBookPrice(bdPrice);
 			}
 
 			count++;
@@ -187,5 +191,14 @@ public class WebScraperDriver
 
 	private String formatPriceString(String price) {
 		return price.replaceAll("[^0-9.]", "");
+	}
+
+	private String formatTitle(String title) {
+		if (title.contains("by")) {
+			int byIndex = title.indexOf("by");
+			title = title.substring(0, byIndex - 1);
+		}
+
+		return title;
 	}
 }

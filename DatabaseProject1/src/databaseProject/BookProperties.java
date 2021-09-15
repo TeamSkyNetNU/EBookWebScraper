@@ -11,7 +11,7 @@ public class BookProperties
 	private int id;
 	private String site;
   	private String title;
-  	private double formattedPrice;
+  	private BigDecimal bookPrice;
 	
 	public BookProperties() 
 	{
@@ -37,14 +37,14 @@ public class BookProperties
 		this.title = title;
 	}
 
-	public double getFormattedPrice()
+	public BigDecimal getBookPrice()
 	{
-    	return formattedPrice;
+    	return bookPrice;
 	}
 
-	public void setFormattedPrice(double formattedPrice)
+	public void setBookPrice(BigDecimal bookPrice)
 	{
-		this.formattedPrice = formattedPrice;
+		this.bookPrice = bookPrice;
 	}
 
 	public String getSite() { return site; }

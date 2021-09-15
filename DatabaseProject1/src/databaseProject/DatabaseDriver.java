@@ -1,6 +1,7 @@
 package databaseProject;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -128,7 +129,7 @@ public class DatabaseDriver
 		{
 			preparedStatement.setInt(1, book.getId());
 			preparedStatement.setString(2, book.getTitle());
-			preparedStatement.setDouble(3, book.getFormattedPrice());
+			preparedStatement.setDouble(3, book.getBookPrice().doubleValue());
 			preparedStatement.execute();
 		}
 		//System.out.println("Extraction Complete.");
@@ -145,7 +146,6 @@ public class DatabaseDriver
 			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			DatabaseQueryOperations.bookSelection = book;
-
 			getQueriesList();
 
 			for (String tableTitle : titlePriceQueriesList) {
@@ -159,10 +159,10 @@ public class DatabaseDriver
 				ResultSet result = preparedStatement.executeQuery();
 				while (result.next())
 				{
-
-					Double price = Double.parseDouble(result.getString("Price"));
+					double price = Double.parseDouble(result.getString("Price"));
+					fixedPrice = new BigDecimal(price).setScale(2, RoundingMode.HALF_DOWN);
 					bookListing.setTitle(result.getString(1));
-					bookListing.setFormattedPrice(price);
+					bookListing.setBookPrice(fixedPrice);
 
 					//bookPrices.add(price);
 				}
@@ -229,6 +229,7 @@ public class DatabaseDriver
 	 */
 	public List<BookProperties> queryDB() {
 		List<BookProperties> bookList = new ArrayList<>();
+		BigDecimal bdPrice;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
@@ -247,8 +248,10 @@ public class DatabaseDriver
 					price = Double.parseDouble(result.getString("Price"));
 				}
 
+				bdPrice = new BigDecimal(price).setScale(2, RoundingMode.HALF_DOWN);
+
 				bookListing.setTitle(result.getString("Title"));
-				bookListing.setFormattedPrice(price);
+				bookListing.setBookPrice(bdPrice);
 				bookListing.setId(Integer.parseInt(result.getString("Id")));
 				
 				bookList.add(bookListing);

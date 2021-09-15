@@ -1,7 +1,6 @@
 package databaseProject;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,6 +22,7 @@ public class MarketAnalysisSceneController implements Initializable {
     double barnesPrice ;
     double yourPrice;
     XYChart.Series series1 = new XYChart.Series<>();
+    boolean bookExists = false;
 
     @FXML
     private BorderPane rootPane;
@@ -68,6 +68,11 @@ public class MarketAnalysisSceneController implements Initializable {
     	try {
             books = bookDisplay.getLowestPrice(bookSpecified);
             updatePrices(books);
+
+            if (!bookExists) {
+                bookTitleLabel.setText(bookSpecified + " was not found on any website");
+            }
+
             updateChart();
         }
     	catch (Exception ex) {
@@ -115,28 +120,33 @@ public class MarketAnalysisSceneController implements Initializable {
     }
 
     void updatePrices(List<BookProperties> books) {
+        bookExists = false;
         clearPrices();
     	for (BookProperties book : books) {
-            if (book.getFormattedPrice() > 0) {
+            if (book.getBookPrice() != null) {
                 switch (book.getSite()) {
                     case "amazon":
-                        amazonPrice = book.getFormattedPrice();
+                        amazonPrice = book.getBookPrice().doubleValue();
                         amazonPriceLabel.setText("$ " + UserInterface.formatPrice(amazonPrice));
                         changeLabelColor(amazonPriceLabel, amazonPrice);
+                        bookExists = true;
                         break;
                     case "barnesnoble":
-                        barnesPrice = book.getFormattedPrice();
+                        barnesPrice = book.getBookPrice().doubleValue();
                         barnesPriceLabel.setText("$ " + UserInterface.formatPrice(barnesPrice));
                         changeLabelColor(barnesPriceLabel, barnesPrice);
+                        bookExists = true;
                         break;
                     case "ebay":
-                        ebayPrice = book.getFormattedPrice();
+                        ebayPrice = book.getBookPrice().doubleValue();
                         ebayPriceLabel.setText("$ " + UserInterface.formatPrice(ebayPrice));
                         changeLabelColor(ebayPriceLabel, ebayPrice);
+                        bookExists = true;
                         break;
                     case "inventory":
-                        yourPrice = book.getFormattedPrice();
+                        yourPrice = book.getBookPrice().doubleValue();
                         yourPriceLabel.setText("$ " + UserInterface.formatPrice(yourPrice));
+                        bookExists = true;
                         break;
                     default:
                         break;
@@ -167,7 +177,7 @@ public class MarketAnalysisSceneController implements Initializable {
             label.getStyleClass().add("greenLabel");
         } else if (price < yourPrice) {
             label.getStyleClass().add("redLabel");
-        } else if (yourPrice == 0) {
+        } else if (price == yourPrice) {
             label.getStyleClass().clear();
         }
     }

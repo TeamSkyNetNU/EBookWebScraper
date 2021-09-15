@@ -47,7 +47,7 @@ public class ViewDatabaseSceneController implements Initializable {
     private TableColumn<BookProperties, String> nameColumn;
     
     @FXML
-    private TableColumn<BookProperties, Double> priceColumn;
+    private TableColumn<BookProperties, BigDecimal> priceColumn;
 
     @FXML
     private Button showDataButton;
@@ -112,7 +112,7 @@ public class ViewDatabaseSceneController implements Initializable {
     	
     	idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
-    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Double>("formattedPrice"));
+    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, BigDecimal>("bookPrice"));
     	
     	amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
     	ebayRadioButton.setUserData(WebsiteChoice.EBAY);
@@ -165,19 +165,19 @@ public class ViewDatabaseSceneController implements Initializable {
         switch (searchResult.getSite()) {
             case ("amazon"):
                 amazonSearchLabel.setText("Amazon's Price:");
-                amazonSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
+                amazonSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
                 break;
             case ("ebay"):
                 ebaySearchLabel.setText("Ebay's Price:");
-                ebaySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
+                ebaySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
                 break;
             case ("barnesnoble"):
                 barnesSearchLabel.setText("Barnes & Noble's Price:");
-                barnesSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
+                barnesSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
                 break;
             case ("inventory"):
                 inventorySearchLabel.setText("Your Price:");
-                inventorySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getFormattedPrice()));
+                inventorySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
                 break;
             default:
                 break;
