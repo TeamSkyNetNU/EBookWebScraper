@@ -23,6 +23,8 @@ Must have at minimum:
 Java version installed: Java jdk-16
 JavaFX version installed: Javafx-sdk-11.0
 Java Compiler compliance level: Java 11
+
+The following jars must also be added to the Classpath:
 mysql-connector-java-8.0.25.jar
 jsoup-1.14.1.jar
 
