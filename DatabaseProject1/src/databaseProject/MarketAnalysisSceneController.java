@@ -3,17 +3,18 @@ package databaseProject;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 
 public class MarketAnalysisSceneController implements Initializable {
 
@@ -21,7 +22,8 @@ public class MarketAnalysisSceneController implements Initializable {
     double ebayPrice;
     double barnesPrice ;
     double yourPrice;
-    XYChart.Series series1 = new XYChart.Series<>();
+    @SuppressWarnings("rawtypes")
+	XYChart.Series series1 = new XYChart.Series<>();
     boolean bookExists = false;
 
     @FXML
@@ -81,7 +83,8 @@ public class MarketAnalysisSceneController implements Initializable {
         }
     }
     
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
     	
     	amazonPrice = 0;
@@ -108,7 +111,8 @@ public class MarketAnalysisSceneController implements Initializable {
     	barChart.getData().add(series1);
     }
 
-    void updateChart() {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	void updateChart() {
         series1.getData().clear();
         barChart.getData().clear();
         series1.getData().add(new XYChart.Data("Amazon", amazonPrice));
@@ -179,6 +183,6 @@ public class MarketAnalysisSceneController implements Initializable {
             label.getStyleClass().add("redLabel");
         } else if (price == yourPrice) {
             label.getStyleClass().clear();
-        }
-    }
+		}
+	}
 }

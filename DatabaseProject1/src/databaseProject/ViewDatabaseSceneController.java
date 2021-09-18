@@ -15,183 +15,195 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-public class ViewDatabaseSceneController implements Initializable {
-	
-	private enum WebsiteChoice {
-		AMAZON(1),
-		BARNES(2),
-		EBAY(3),
-		INVENTORY(8);
-		
+public class ViewDatabaseSceneController implements Initializable
+{
+	private enum WebsiteChoice
+	{
+		AMAZON(1), BARNES(2), EBAY(3), INVENTORY(8);
+
 		private final int siteNum;
 
-		WebsiteChoice(int siteNum) {
+		WebsiteChoice(int siteNum)
+		{
 			this.siteNum = siteNum;
 		}
-		
-		public int getSiteNum() {
+
+		public int getSiteNum()
+		{
 			return siteNum;
 		}
 	}
 
-    @FXML
-    private BorderPane rootPane;
+	@FXML
+	private BorderPane rootPane;
 
-    @FXML
-    private TableView<BookProperties> tableView;
-    
-    @FXML
-    private TableColumn<BookProperties, Integer> idColumn;
-    
-    @FXML
-    private TableColumn<BookProperties, String> nameColumn;
-    
-    @FXML
-    private TableColumn<BookProperties, BigDecimal> priceColumn;
+	@FXML
+	private TableView<BookProperties> tableView;
 
-    @FXML
-    private Button showDataButton;
-    
-    @FXML
-    private RadioButton amazonRadioButton;
+	@FXML
+	private TableColumn<BookProperties, Integer> idColumn;
 
-    @FXML
-    private RadioButton ebayRadioButton;
+	@FXML
+	private TableColumn<BookProperties, String> nameColumn;
 
-    @FXML
-    private RadioButton barnesRadioButton;
+	@FXML
+	private TableColumn<BookProperties, BigDecimal> priceColumn;
 
-    @FXML
-    private RadioButton inventoryRadioButton;
-    
-    @FXML
-    private ToggleGroup websiteToggleGroup;
+	@FXML
+	private Button showDataButton;
 
-    @FXML
-    private TextField searchBookTextField;
+	@FXML
+	private RadioButton amazonRadioButton;
 
-    @FXML
-    private Label searchResultLabel;
+	@FXML
+	private RadioButton ebayRadioButton;
 
-    @FXML
-    private Label amazonSearchLabel;
+	@FXML
+	private RadioButton barnesRadioButton;
 
-    @FXML
-    private Label ebaySearchLabel;
+	@FXML
+	private RadioButton inventoryRadioButton;
 
-    @FXML
-    private Label barnesSearchLabel;
+	@FXML
+	private ToggleGroup websiteToggleGroup;
 
-    @FXML
-    private Label inventorySearchLabel;
+	@FXML
+	private TextField searchBookTextField;
 
-    @FXML
-    private Label amazonSearchPriceLabel;
+	@FXML
+	private Label searchResultLabel;
 
-    @FXML
-    private Label ebaySearchPriceLabel;
+	@FXML
+	private Label amazonSearchLabel;
 
-    @FXML
-    private Label barnesSearchPriceLabel;
+	@FXML
+	private Label ebaySearchLabel;
 
-    @FXML
-    private Label inventorySearchPriceLabel;
+	@FXML
+	private Label barnesSearchLabel;
 
-    ObservableList<BookProperties> bookData = FXCollections.observableArrayList();
-    DisplayBookData displayBook;
+	@FXML
+	private Label inventorySearchLabel;
 
+	@FXML
+	private Label amazonSearchPriceLabel;
 
-    @FXML
-    void showData(ActionEvent event) throws ClassNotFoundException, SQLException {
-        bookData.clear();
-    	tableView.setItems(getBookData());
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    	
-    	idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
-    	nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
-    	priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, BigDecimal>("bookPrice"));
-    	
-    	amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
-    	ebayRadioButton.setUserData(WebsiteChoice.EBAY);
-    	barnesRadioButton.setUserData(WebsiteChoice.BARNES);
-    	inventoryRadioButton.setUserData(WebsiteChoice.INVENTORY);
+	@FXML
+	private Label ebaySearchPriceLabel;
 
-        displayBook = new DisplayBookData();
-    }
-    
-    @FXML
-    private void radioButtonSelected(ActionEvent e) {
-    	WebsiteChoice choice = (WebsiteChoice) websiteToggleGroup.getSelectedToggle().getUserData();
-    	UserInterface.selection = choice.getSiteNum();
-    }
-    
-    private ObservableList<BookProperties> getBookData() {
-		
+	@FXML
+	private Label barnesSearchPriceLabel;
+
+	@FXML
+	private Label inventorySearchPriceLabel;
+
+	ObservableList<BookProperties> bookData = FXCollections.observableArrayList();
+	DisplayBookData displayBook;
+
+	@FXML
+	void showData(ActionEvent event) throws ClassNotFoundException, SQLException
+	{
+		bookData.clear();
+		tableView.setItems(getBookData());
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb)
+	{
+
+		idColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, Integer>("id"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, String>("title"));
+		priceColumn.setCellValueFactory(new PropertyValueFactory<BookProperties, BigDecimal>("bookPrice"));
+
+		amazonRadioButton.setUserData(WebsiteChoice.AMAZON);
+		ebayRadioButton.setUserData(WebsiteChoice.EBAY);
+		barnesRadioButton.setUserData(WebsiteChoice.BARNES);
+		inventoryRadioButton.setUserData(WebsiteChoice.INVENTORY);
+
+		displayBook = new DisplayBookData();
+	}
+
+	@FXML
+	private void radioButtonSelected(ActionEvent e)
+	{
+		WebsiteChoice choice = (WebsiteChoice) websiteToggleGroup.getSelectedToggle().getUserData();
+		UserInterface.selection = choice.getSiteNum();
+	}
+
+	private ObservableList<BookProperties> getBookData()
+	{
+
 		List<BookProperties> products = displayBook.viewDB();
-		
-	    for (BookProperties product : products) {
-	    	bookData.add(product);
-        }
-	    
-    	return bookData;
-    }
 
-    @FXML
-    void searchBook(ActionEvent event) {
-        clearSearchLabelText();
-        List<BookProperties> searchResults = new ArrayList<>();
+		for (BookProperties product : products)
+		{
+			bookData.add(product);
+		}
 
-        boolean atLeastOneResult = false;
+		return bookData;
+	}
 
-        searchResultLabel.setText(searchBookTextField.getText());
-        searchResults = displayBook.searchBook(searchBookTextField.getText());
+	@FXML
+	void searchBook(ActionEvent event)
+	{
+		clearSearchLabelText();
+		List<BookProperties> searchResults = new ArrayList<>();
 
-        for (BookProperties searchResult : searchResults) {
-            if (searchResult.getTitle() != null) {
-                atLeastOneResult = true;
-                changeSearchLabelText(searchResult);
-            }
-        }
+		boolean atLeastOneResult = false;
 
-        if (!atLeastOneResult) {
-            searchResultLabel.setText(searchBookTextField.getText() + " was not found on any website");
-        }
-    }
+		searchResultLabel.setText(searchBookTextField.getText());
+		searchResults = displayBook.searchBook(searchBookTextField.getText());
 
-    void changeSearchLabelText(BookProperties searchResult) {
-        switch (searchResult.getSite()) {
-            case ("amazon"):
-                amazonSearchLabel.setText("Amazon's Price:");
-                amazonSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
-                break;
-            case ("ebay"):
-                ebaySearchLabel.setText("Ebay's Price:");
-                ebaySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
-                break;
-            case ("barnesnoble"):
-                barnesSearchLabel.setText("Barnes & Noble's Price:");
-                barnesSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
-                break;
-            case ("inventory"):
-                inventorySearchLabel.setText("Your Price:");
-                inventorySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
-                break;
-            default:
-                break;
-        }
-    }
+		for (BookProperties searchResult : searchResults)
+		{
+			if (searchResult.getTitle() != null)
+			{
+				atLeastOneResult = true;
+				changeSearchLabelText(searchResult);
+			}
+		}
 
-    void clearSearchLabelText() {
-        amazonSearchLabel.setText("");
-        amazonSearchPriceLabel.setText("");
-        ebaySearchLabel.setText("");
-        ebaySearchPriceLabel.setText("");
-        barnesSearchLabel.setText("");
-        barnesSearchPriceLabel.setText("");
-        inventorySearchLabel.setText("");
-        inventorySearchPriceLabel.setText("");
-    }
+		if (!atLeastOneResult)
+		{
+			searchResultLabel.setText(searchBookTextField.getText() + " was not found on any website");
+		}
+	}
+
+	void changeSearchLabelText(BookProperties searchResult)
+	{
+		switch (searchResult.getSite())
+		{
+		case ("amazon"):
+			amazonSearchLabel.setText("Amazon's Price:");
+			amazonSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
+			break;
+		case ("ebay"):
+			ebaySearchLabel.setText("Ebay's Price:");
+			ebaySearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
+			break;
+		case ("barnesnoble"):
+			barnesSearchLabel.setText("Barnes & Noble's Price:");
+			barnesSearchPriceLabel.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
+			break;
+		case ("inventory"):
+			inventorySearchLabel.setText("Your Price:");
+			inventorySearchPriceLabel
+					.setText("$" + UserInterface.formatPrice(searchResult.getBookPrice().doubleValue()));
+			break;
+		default:
+			break;
+		}
+	}
+
+	void clearSearchLabelText()
+	{
+		amazonSearchLabel.setText("");
+		amazonSearchPriceLabel.setText("");
+		ebaySearchLabel.setText("");
+		ebaySearchPriceLabel.setText("");
+		barnesSearchLabel.setText("");
+		barnesSearchPriceLabel.setText("");
+		inventorySearchLabel.setText("");
+		inventorySearchPriceLabel.setText("");
+	}
 }

@@ -16,142 +16,162 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.*;
 
-public class WebScraperSceneController implements Initializable {
+public class WebScraperSceneController implements Initializable
+{
 
-    @FXML
-    private CheckBox amazonCheckbox;
+	@FXML
+	private CheckBox amazonCheckbox;
 
-    @FXML
-    private CheckBox ebayCheckbox;
+	@FXML
+	private CheckBox ebayCheckbox;
 
-    @FXML
-    private CheckBox barnesCheckbox;
+	@FXML
+	private CheckBox barnesCheckbox;
 
-    @FXML
-    private Button beginScrapingButton;
+	@FXML
+	private Button beginScrapingButton;
 
-    @FXML
-    private Button scrapeIntervalButton;
+	@FXML
+	private Button scrapeIntervalButton;
 
-    @FXML
-    private Button cancelScrapeIntervalButton;
+	@FXML
+	private Button cancelScrapeIntervalButton;
 
-    @FXML
-    private TextField setHoursTextField;
+	@FXML
+	private TextField setHoursTextField;
 
-    @FXML
-    private TextField setDaysTextField;
+	@FXML
+	private TextField setDaysTextField;
 
-    @FXML
-    private ListView<String> listView;
+	@FXML
+	private ListView<String> listView;
 
-    private static ObservableList<String> systemMessages =
-            FXCollections.observableArrayList();
+	private static ObservableList<String> systemMessages = FXCollections.observableArrayList();
 
-    private boolean intervalToggle = true;
+	@SuppressWarnings("unused")
+	private boolean intervalToggle = true;
 
-    ScraperScheduledService service1;
+	ScraperScheduledService service1;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        listView.setItems(systemMessages);
-        cancelScrapeIntervalButton.setDisable(true);
-    }
+	@Override
+	public void initialize(URL url, ResourceBundle rb)
+	{
+		listView.setItems(systemMessages);
+		cancelScrapeIntervalButton.setDisable(true);
+	}
 
-    @FXML
-    void beginScraping(ActionEvent event) {
+	@FXML
+	void beginScraping(ActionEvent event)
+	{
 
-        setUserSelection();
+		setUserSelection();
 
-        WebScraperTask webScraperTask = new WebScraperTask();
+		WebScraperTask webScraperTask = new WebScraperTask();
 
-        webScraperTask.valueProperty().addListener((observable, oldMessage, message) -> {
-            systemMessages.add(message);
-            listView.scrollTo(listView.getItems().size());
-        });
+		webScraperTask.valueProperty().addListener((observable, oldMessage, message) ->
+		{
+			systemMessages.add(message);
+			listView.scrollTo(listView.getItems().size());
+		});
 
-        webScraperTask.setOnRunning((succeededEvent) -> {
-            beginScrapingButton.setDisable(true);
-        });
+		webScraperTask.setOnRunning((succeededEvent) ->
+		{
+			beginScrapingButton.setDisable(true);
+		});
 
-        webScraperTask.setOnSucceeded((succeededEvent) -> {
-            beginScrapingButton.setDisable(false);
-        });
+		webScraperTask.setOnSucceeded((succeededEvent) ->
+		{
+			beginScrapingButton.setDisable(false);
+		});
 
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        executorService.execute(webScraperTask);
-        executorService.shutdown();
-    }
+		ExecutorService executorService = Executors.newFixedThreadPool(1);
+		executorService.execute(webScraperTask);
+		executorService.shutdown();
+	}
 
-    @FXML
-    void startScrapeInterval(ActionEvent event) {
+	@FXML
+	void startScrapeInterval(ActionEvent event)
+	{
 
-        setUserSelection();
+		setUserSelection();
 
-        try {
-            long hours = Long.parseLong(setHoursTextField.getText());
-            long days = Long.parseLong(setDaysTextField.getText());
+		try
+		{
+			long hours = Long.parseLong(setHoursTextField.getText());
+			long days = Long.parseLong(setDaysTextField.getText());
 
-            systemMessages.add("Now Scraping websites every "
-                    + hours + " hour(s) for "
-                    + days + " days");
+			systemMessages.add("Now Scraping websites every " + hours + " hour(s) for " + days + " days");
 
-            scrapeIntervalButton.setDisable(true);
-            cancelScrapeIntervalButton.setDisable(false);
+			scrapeIntervalButton.setDisable(true);
+			cancelScrapeIntervalButton.setDisable(false);
 
-            service1 = new ScraperScheduledService();
+			service1 = new ScraperScheduledService();
 
-            service1.setPeriod(Duration.hours(hours));
+			service1.setPeriod(Duration.hours(hours));
 
-            service1.start();
+			service1.start();
 
-            service1.valueProperty().addListener((observable, oldMessage, message) -> {
-                if (message != null) {
-                    systemMessages.add(message);
-                    listView.scrollTo(listView.getItems().size());
-                }
-            });
-        }
-        catch (NumberFormatException ex) {
-            systemMessages.add("Only numbers are accepted for Scrape Interval");
-        }
+			service1.valueProperty().addListener((observable, oldMessage, message) ->
+			{
+				if (message != null)
+				{
+					systemMessages.add(message);
+					listView.scrollTo(listView.getItems().size());
+				}
+			});
+		} catch (NumberFormatException ex)
+		{
+			systemMessages.add("Only numbers are accepted for Scrape Interval");
+		}
 
-        listView.scrollTo(listView.getItems().size());
-    }
+		listView.scrollTo(listView.getItems().size());
+	}
 
-    @FXML
-    void cancelScrapeInterval(ActionEvent event) {
-        if (service1.isRunning()) {
-            scrapeIntervalButton.setDisable(false);
-            cancelScrapeIntervalButton.setDisable(true);
-            service1.cancel();
-            systemMessages.add("Stopped hourly scraping");
-        }
-    }
+	@FXML
+	void cancelScrapeInterval(ActionEvent event)
+	{
+		if (service1.isRunning())
+		{
+			scrapeIntervalButton.setDisable(false);
+			cancelScrapeIntervalButton.setDisable(true);
+			service1.cancel();
+			systemMessages.add("Stopped hourly scraping");
+		}
+	}
 
-    void setUserSelection() {
-        if (amazonCheckbox.isSelected() && !ebayCheckbox.isSelected() && !barnesCheckbox.isSelected()) {
-            UserInterface.selection = 1;
-        } else if (barnesCheckbox.isSelected() && !amazonCheckbox.isSelected() && !ebayCheckbox.isSelected()) {
-            UserInterface.selection = 2;
-        } else if (ebayCheckbox.isSelected() && !amazonCheckbox.isSelected() && !barnesCheckbox.isSelected()) {
-            UserInterface.selection = 3;
-        } else if (amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && !ebayCheckbox.isSelected()) {
-            UserInterface.selection = 4;
-        } else if (amazonCheckbox.isSelected() && !barnesCheckbox.isSelected() && ebayCheckbox.isSelected()) {
-            UserInterface.selection = 5;
-        } else if (!amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && ebayCheckbox.isSelected()) {
-            UserInterface.selection = 6;
-        } else if (amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && ebayCheckbox.isSelected()) {
-            UserInterface.selection = 7;
-        }
-    }
+	void setUserSelection()
+	{
+		if (amazonCheckbox.isSelected() && !ebayCheckbox.isSelected() && !barnesCheckbox.isSelected())
+		{
+			UserInterface.selection = 1;
+		} else if (barnesCheckbox.isSelected() && !amazonCheckbox.isSelected() && !ebayCheckbox.isSelected())
+		{
+			UserInterface.selection = 2;
+		} else if (ebayCheckbox.isSelected() && !amazonCheckbox.isSelected() && !barnesCheckbox.isSelected())
+		{
+			UserInterface.selection = 3;
+		} else if (amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && !ebayCheckbox.isSelected())
+		{
+			UserInterface.selection = 4;
+		} else if (amazonCheckbox.isSelected() && !barnesCheckbox.isSelected() && ebayCheckbox.isSelected())
+		{
+			UserInterface.selection = 5;
+		} else if (!amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && ebayCheckbox.isSelected())
+		{
+			UserInterface.selection = 6;
+		} else if (amazonCheckbox.isSelected() && barnesCheckbox.isSelected() && ebayCheckbox.isSelected())
+		{
+			UserInterface.selection = 7;
+		}
+	}
 
-    private static class ScraperScheduledService extends ScheduledService<String> {
+	private static class ScraperScheduledService extends ScheduledService<String>
+	{
 
-        @Override
-        protected Task<String> createTask() {
-            return new WebScraperTask();
-        }
-    }
+		@Override
+		protected Task<String> createTask()
+		{
+			return new WebScraperTask();
+		}
+	}
 }

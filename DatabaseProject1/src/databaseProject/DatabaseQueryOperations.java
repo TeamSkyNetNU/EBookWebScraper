@@ -52,5 +52,4 @@ public class DatabaseQueryOperations
 			+ " WHERE barnesnoble.Title LIKE '%" + bookSelection + "%';";
 	public static String SQL_EBAY_SELECT_LIKE = "SELECT Title, Price FROM ebay "
 			+ "WHERE ebay.Title LIKE '%" + bookSelection + "%';";
-
 }

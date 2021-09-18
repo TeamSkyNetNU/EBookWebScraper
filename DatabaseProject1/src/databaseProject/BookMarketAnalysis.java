@@ -3,7 +3,6 @@ package databaseProject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /*
  * 
@@ -13,26 +12,18 @@ public class BookMarketAnalysis
 {
 	DatabaseDriver dataBaseDriver = new DatabaseDriver();
 
-	/*void beginMarketAnalysis(){
-		getLowestPrice();
-	}
-	*/
-
-	public List<BookProperties> getLowestPrice(String bookSpecified) {
-		boolean lowestPriceRequested = true;
-
+	public List<BookProperties> getLowestPrice(String bookSpecified)
+	{
 		List<BookProperties> books = new ArrayList<>();
 
-		try {
-			books = dataBaseDriver.queryBook(bookSpecified, lowestPriceRequested);
-		}
-		catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+		try
+		{
+			books = dataBaseDriver.queryBook(bookSpecified);
+		} catch (ClassNotFoundException | SQLException e)
+		{
 			e.printStackTrace();
 		}
 
 		return books;
 	}
-
-	// TODO Price Recommendation, view Price
 }

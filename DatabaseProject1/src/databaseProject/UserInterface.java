@@ -1,9 +1,5 @@
 package databaseProject;
 
-import java.sql.SQLException;
-import java.util.Scanner;
-
-
 /*
  * 
  *  This class takes user input selection on how they want to run the program.
@@ -19,38 +15,13 @@ public class UserInterface
 	public static final String USER = cfg.getProperty("mDbUser");
 	public static final String PASSWORD = cfg.getProperty("mDbPwd");
 
-	void run()
-	{
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-
-		//verifyUser();
-
-		System.out.println("Enter the website you want to scrape\n"
-				+ "1.Amazon Books 2.Barnes & Noble 3.Ebay Books: 4.A&B 5.A&E 6.B&E 7.All:\n");
-
-		selection = scanner.nextInt();
-		if (selection > 7)
-		{
-			System.out.println("Wrong input. Please try again.");
-			exit();
-		}
-//		if (selection != 4)
-//		{
-//			// TODO: books only display if a single site is selected, needs more
-//			// functionality
-//			displayBookData.displayBooks();
-//		}
-
-		databaseDriver.getBookProducts();
-	}
-
 	public static boolean verifyUser(String username, String password)
 	{
 		return username.matches(USER) && password.matches(PASSWORD);
 	}
 
-	public static String formatPrice(double price) {
+	public static String formatPrice(double price)
+	{
 		return String.format("%.2f", price);
 	}
 

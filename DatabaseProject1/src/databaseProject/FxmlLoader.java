@@ -8,21 +8,27 @@ import javafx.scene.layout.BorderPane;
  * for the GUI
  */
 
-public class FxmlLoader {
+public class FxmlLoader
+{
 	private BorderPane view;
-	
-	public BorderPane getPage(String fileName) {
-		try  {
+
+	public BorderPane getPage(String fileName)
+	{
+		try
+		{
 			URL fileUrl = BookScraperMain.class.getResource("/" + fileName + ".fxml");
-			if (fileUrl == null) {
+			if (fileUrl == null)
+			{
 				throw new java.io.FileNotFoundException("FXML file can't be found");
 			}
-			
-			view = new FXMLLoader().load(fileUrl);
-		} catch (Exception e) {
+
+			new FXMLLoader();
+			view = FXMLLoader.load(fileUrl);
+		} catch (Exception e)
+		{
 			System.out.println("No page " + fileName + " please check FxmlLoader.");
 		}
-		
+
 		return view;
 	}
 }

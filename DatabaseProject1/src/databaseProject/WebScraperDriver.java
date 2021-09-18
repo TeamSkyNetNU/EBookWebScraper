@@ -17,7 +17,6 @@ import org.jsoup.select.Elements;
  */
 public class WebScraperDriver
 {
-
 	private static final String EBAY_BOOKS = "https://www.ebay.com/t/Books/261186/bn_16566585";
 	private static final String BARNES_NOBLE_BOOKS = "https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8";
 	private static final String AMAZON_BOOKS = "https://www.amazon.com/books-used-books-textbooks/b/"
@@ -34,38 +33,42 @@ public class WebScraperDriver
 	 * selector strings are being parsed.
 	 * 
 	 */
-	public List<BookProperties> extractProducts(String website) {
+	public List<BookProperties> extractProducts(String website)
+	{
 		List<BookProperties> books = new ArrayList<>();
 
 		int count = 0;
 		Document doc;
 
-		try {
+		try
+		{
 			doc = Jsoup.connect(website).get();
-		}
-		catch (IOException e) {
+		} catch (IOException e)
+		{
 			throw new RuntimeException(e);
 		}
-
 
 		startMessage(website);
 
 		verifySiteTables(website);
 		PRODUCT_CARD_CLASS = verifyProductCard(website);
 		Elements productElements = doc.getElementsByClass(PRODUCT_CARD_CLASS);
-		for (Element productElement : productElements) {
+		for (Element productElement : productElements)
+		{
 			BookProperties bookListing = new BookProperties();
 
 			PRODUCT_TITLE_CLASS = verifyProductTitle(website);
 			Elements titleElements = productElement.getElementsByClass(PRODUCT_TITLE_CLASS);
-			if (!titleElements.isEmpty()) {
+			if (!titleElements.isEmpty())
+			{
 				String title = formatTitle(titleElements.get(0).text());
 				bookListing.setTitle(title);
 			}
 
 			PRODUCT_PRICE_SELECTOR = verifyProductPrice(website);
 			Elements priceElements = productElement.getElementsByClass(PRODUCT_PRICE_SELECTOR);
-			if (!priceElements.isEmpty()) {
+			if (!priceElements.isEmpty())
+			{
 				Double price = Double.parseDouble(formatPriceString(priceElements.get(0).text()));
 				BigDecimal bdPrice = new BigDecimal(price).setScale(2, RoundingMode.HALF_DOWN);
 				bookListing.setBookPrice(bdPrice);
@@ -81,32 +84,41 @@ public class WebScraperDriver
 	}
 
 	/*
-	 * For scraping selection, uses #'s 1-3, for combinations of 2 sites uses 4,5,6, and 7 for all sites
+	 * For scraping selection, uses #'s 1-3, for combinations of 2 sites uses 4,5,6,
+	 * and 7 for all sites
 	 */
-	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList) {
+	static ArrayList<String> verifySitesToExtract(ArrayList<String> onlineBookSiteList)
+	{
 		onlineBookSiteList.clear();
-		if (UserInterface.selection == 1) {
+		if (UserInterface.selection == 1)
+		{
 			onlineBookSiteList.add(AMAZON_BOOKS);
 		}
-		if (UserInterface.selection == 2) {
+		if (UserInterface.selection == 2)
+		{
 			onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
 		}
-		if (UserInterface.selection == 3) {
+		if (UserInterface.selection == 3)
+		{
 			onlineBookSiteList.add(EBAY_BOOKS);
 		}
-		if (UserInterface.selection == 4) {
+		if (UserInterface.selection == 4)
+		{
 			onlineBookSiteList.add(AMAZON_BOOKS);
 			onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
 		}
-		if (UserInterface.selection == 5) {
+		if (UserInterface.selection == 5)
+		{
 			onlineBookSiteList.add(AMAZON_BOOKS);
 			onlineBookSiteList.add(EBAY_BOOKS);
 		}
-		if (UserInterface.selection == 6) {
+		if (UserInterface.selection == 6)
+		{
 			onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
 			onlineBookSiteList.add(EBAY_BOOKS);
 		}
-		if (UserInterface.selection == 7) {
+		if (UserInterface.selection == 7)
+		{
 			onlineBookSiteList.add(BARNES_NOBLE_BOOKS);
 			onlineBookSiteList.add(EBAY_BOOKS);
 			onlineBookSiteList.add(AMAZON_BOOKS);
@@ -115,86 +127,109 @@ public class WebScraperDriver
 		return onlineBookSiteList;
 	}
 
-	private void startMessage(String website) {
+	private void startMessage(String website)
+	{
 		String formattedWebsiteName = "";
 
-		if (website.contentEquals(WebScraperDriver.AMAZON_BOOKS)) {
+		if (website.contentEquals(WebScraperDriver.AMAZON_BOOKS))
+		{
 			formattedWebsiteName = "Amazon Books";
 		}
-		if (website.contentEquals(WebScraperDriver.BARNES_NOBLE_BOOKS)) {
+		if (website.contentEquals(WebScraperDriver.BARNES_NOBLE_BOOKS))
+		{
 			formattedWebsiteName = "Barnes & Noble";
 		}
-		if (website.contentEquals(WebScraperDriver.EBAY_BOOKS)) {
+		if (website.contentEquals(WebScraperDriver.EBAY_BOOKS))
+		{
 			formattedWebsiteName = "Ebay Books";
 		}
 
 		System.out.println("Extracting from " + formattedWebsiteName + ".");
 	}
 
-	private void verifySiteTables(String website) {
-		if (website.contentEquals(AMAZON_BOOKS)) {
+	private void verifySiteTables(String website)
+	{
+		if (website.contentEquals(AMAZON_BOOKS))
+		{
 			DatabaseQueryOperations.SQL_DROP_TABLE = DatabaseQueryOperations.SQL_DROP_AMAZON;
 			DatabaseQueryOperations.SQL_CREATE_TABLE = DatabaseQueryOperations.SQL_AMAZON_CREATE;
 			DatabaseQueryOperations.SQL_INSERT = DatabaseQueryOperations.SQL_INSERT_AMAZON;
 		}
-		if (website.contentEquals(BARNES_NOBLE_BOOKS)) {
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
 			DatabaseQueryOperations.SQL_DROP_TABLE = DatabaseQueryOperations.SQL_DROP_BARNES;
 			DatabaseQueryOperations.SQL_CREATE_TABLE = DatabaseQueryOperations.SQL_BARNES_CREATE;
 			DatabaseQueryOperations.SQL_INSERT = DatabaseQueryOperations.SQL_INSERT_BARNES;
 		}
-		if (website.contentEquals(EBAY_BOOKS)) {
+		if (website.contentEquals(EBAY_BOOKS))
+		{
 			DatabaseQueryOperations.SQL_DROP_TABLE = DatabaseQueryOperations.SQL_DROP_EBAY;
 			DatabaseQueryOperations.SQL_CREATE_TABLE = DatabaseQueryOperations.SQL_EBAY_CREATE;
 			DatabaseQueryOperations.SQL_INSERT = DatabaseQueryOperations.SQL_INSERT_EBAY;
 		}
 	}
 
-	private String verifyProductCard(String website) {
-		if (website.contentEquals(AMAZON_BOOKS)) {
+	private String verifyProductCard(String website)
+	{
+		if (website.contentEquals(AMAZON_BOOKS))
+		{
 			PRODUCT_CARD_CLASS = "acs-product-block";
 		}
-		if (website.contentEquals(BARNES_NOBLE_BOOKS)) {
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
 			PRODUCT_CARD_CLASS = "product-info-view";
 		}
-		if (website.contentEquals(EBAY_BOOKS)) {
+		if (website.contentEquals(EBAY_BOOKS))
+		{
 			PRODUCT_CARD_CLASS = "details-wrapper";
 		}
 		return PRODUCT_CARD_CLASS;
 	}
 
-	private String verifyProductTitle(String website) {
-		if (website.contentEquals(AMAZON_BOOKS)) {
+	private String verifyProductTitle(String website)
+	{
+		if (website.contentEquals(AMAZON_BOOKS))
+		{
 			PRODUCT_TITLE_CLASS = "a-truncate-full";
 		}
-		if (website.contentEquals(BARNES_NOBLE_BOOKS)) {
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
 			PRODUCT_TITLE_CLASS = " ";
 		}
-		if (website.contentEquals(EBAY_BOOKS)) {
+		if (website.contentEquals(EBAY_BOOKS))
+		{
 			PRODUCT_TITLE_CLASS = "title";
 
 		}
 		return PRODUCT_TITLE_CLASS;
 	}
 
-	private String verifyProductPrice(String website) {
-		if (website.contentEquals(AMAZON_BOOKS)) {
+	private String verifyProductPrice(String website)
+	{
+		if (website.contentEquals(AMAZON_BOOKS))
+		{
 			PRODUCT_PRICE_SELECTOR = "a-offscreen";
 		}
-		if (website.contentEquals(BARNES_NOBLE_BOOKS)) {
+		if (website.contentEquals(BARNES_NOBLE_BOOKS))
+		{
 			PRODUCT_PRICE_SELECTOR = " current link";
 		}
-		if (website.contentEquals(EBAY_BOOKS)) {
+		if (website.contentEquals(EBAY_BOOKS))
+		{
 			PRODUCT_PRICE_SELECTOR = "cc-ts-BOLD";
 		}
 		return PRODUCT_PRICE_SELECTOR;
 	}
 
-	private String formatPriceString(String price) {
+	private String formatPriceString(String price)
+	{
 		return price.replaceAll("[^0-9.]", "");
 	}
 
-	private String formatTitle(String title) {
-		if (title.contains(" by ")) {
+	private String formatTitle(String title)
+	{
+		if (title.contains(" by "))
+		{
 			int byIndex = title.indexOf(" by ");
 			title = title.substring(0, byIndex);
 		}

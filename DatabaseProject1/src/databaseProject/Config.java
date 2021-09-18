@@ -6,23 +6,25 @@ import java.util.Properties;
  * This class retrieves sensitive values from the config.cfg file
  */
 
-public class Config {
-	
+public class Config
+{
 	Properties configFile;
-	
-	public Config() {
-		
+
+	public Config()
+	{
 		configFile = new Properties();
-		
-		try {
+
+		try
+		{
 			configFile.load(BookScraperMain.class.getResourceAsStream("/config.properties"));
-		}
-		catch (Exception ex){
+		} catch (Exception ex)
+		{
 			System.out.println("Config file cannot be found");
 		}
 	}
-	
-	public String getProperty(String key) {
+
+	public String getProperty(String key)
+	{
 		String value = this.configFile.getProperty(key);
 		return value;
 	}

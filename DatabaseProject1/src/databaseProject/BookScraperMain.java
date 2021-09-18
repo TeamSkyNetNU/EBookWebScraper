@@ -12,17 +12,20 @@ import javafx.stage.Stage;
  * 	This class contains the main method that runs the Ebook Webscraper.
  */
 
-public class BookScraperMain extends Application {
-	
+public class BookScraperMain extends Application
+{
+
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage) throws Exception
+	{
 		Parent root = FXMLLoader.load(getClass().getResource("/LoginScene.fxml"));
 		primaryStage.setTitle("Ebook WebScraper");
 		primaryStage.setScene(new Scene(root, 600, 400));
 		primaryStage.show();
 	}
-	
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-    	launch(args);
-    }
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException
+	{
+		launch(args);
+	}
 }

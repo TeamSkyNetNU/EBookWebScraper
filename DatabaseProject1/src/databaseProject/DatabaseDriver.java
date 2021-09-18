@@ -37,10 +37,10 @@ public class DatabaseDriver
 	/*
 	 * This method sets the interval the user wants to do webscraping at if they
 	 * wish to do so, starting with a scraping session in 1 minute delay , then
-	 * taking in the parameter 'hours' for how many hours interval they want to
-	 * thew program to continue scraping, and 'days' for how many days they want the
-	 * interval scraping to continue. This happens in a seperate thread from the main
-	 * thread.
+	 * taking in the parameter 'hours' for how many hours interval they want to thew
+	 * program to continue scraping, and 'days' for how many days they want the
+	 * interval scraping to continue. This happens in a seperate thread from the
+	 * main thread.
 	 */
 	public static void setUserIntervalForExtraction()
 	{
@@ -104,11 +104,6 @@ public class DatabaseDriver
 			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
 
 			Statement statement = connection.createStatement();
-
-			// TODO: Maybe create a method to enter refreshed data without dropping tables,
-			// re-creating tables
-			// and entering a new Id. Book amounts can change so this may not be viable as
-			// Id amount must stay the same
 			statement.execute(DatabaseQueryOperations.SQL_DROP_TABLE);
 			statement.executeUpdate(DatabaseQueryOperations.SQL_CREATE_TABLE);
 
@@ -132,12 +127,13 @@ public class DatabaseDriver
 			preparedStatement.setDouble(3, book.getBookPrice().doubleValue());
 			preparedStatement.execute();
 		}
-		//System.out.println("Extraction Complete.");
 	}
 
-	public List<BookProperties> queryBook(String book, boolean lowestPriceRequested) throws SQLException, ClassNotFoundException {
+	public List<BookProperties> queryBook(String book) throws SQLException, ClassNotFoundException
+	{
 		List<BookProperties> books = new ArrayList<>();
-		try {
+		try
+		{
 			BigDecimal fixedPrice = null;
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -148,7 +144,8 @@ public class DatabaseDriver
 			DatabaseQueryOperations.bookSelection = book;
 			getQueriesList();
 
-			for (String tableTitle : titlePriceQueriesList) {
+			for (String tableTitle : titlePriceQueriesList)
+			{
 				BookProperties bookListing = new BookProperties();
 				displayTableTitle(tableTitle);
 				bookListing.setSite(tableTitle);
@@ -163,37 +160,15 @@ public class DatabaseDriver
 					fixedPrice = new BigDecimal(price).setScale(2, RoundingMode.HALF_DOWN);
 					bookListing.setTitle(result.getString(1));
 					bookListing.setBookPrice(fixedPrice);
-
-					//bookPrices.add(price);
 				}
 
 				books.add(bookListing);
 			}
-
-			if (lowestPriceRequested == true) {
-				//fixedPrice = itemWithLowestCost(bookPrices, fixedPrice);
-			}
-
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 		return books;
-	}
-
-	private BigDecimal itemWithLowestCost(ArrayList<BigDecimal> bookPrices, BigDecimal fixedPrice)
-	{
-		BigDecimal smallest = bookPrices.get(0);
-
-		for (int i = 1; i < bookPrices.size(); i++)
-		{
-			if (bookPrices.get(i).intValue() < smallest.intValue())
-			{
-				smallest = bookPrices.get(i);
-			}
-		}
-
-		return smallest;
 	}
 
 	private void getQueriesList()
@@ -225,26 +200,31 @@ public class DatabaseDriver
 	}
 
 	/*
-	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from verifyTableViewed
+	 * Query DB for viewDB method. Utilizes 1,2,3 for database selection from
+	 * verifyTableViewed
 	 */
-	public List<BookProperties> queryDB() {
+	public List<BookProperties> queryDB()
+	{
 		List<BookProperties> bookList = new ArrayList<>();
 		BigDecimal bdPrice;
-		try {
+		try
+		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection;
 			String connectionStr = String.format("jdbc:mysql://%s/%s", dbHost, dbName);
 			connection = DriverManager.getConnection(connectionStr, dbUser, dbPwd);
-			
+
 			PreparedStatement preparedStatement = connection.prepareStatement(DatabaseQueryOperations.SQL_SELECT);
 			ResultSet result = preparedStatement.executeQuery();
-			
-			while (result.next()) {
+
+			while (result.next())
+			{
 				BookProperties bookListing = new BookProperties();
 
 				double price = 0.0;
 
-				if (!result.getString("Price").equals("")) {
+				if (!result.getString("Price").equals(""))
+				{
 					price = Double.parseDouble(result.getString("Price"));
 				}
 
@@ -253,15 +233,15 @@ public class DatabaseDriver
 				bookListing.setTitle(result.getString("Title"));
 				bookListing.setBookPrice(bdPrice);
 				bookListing.setId(Integer.parseInt(result.getString("Id")));
-				
+
 				bookList.add(bookListing);
 
 			}
-		}
-		catch (ClassNotFoundException | SQLException e){
+		} catch (ClassNotFoundException | SQLException e)
+		{
 			e.printStackTrace();
 		}
-		
+
 		return bookList;
 	}
 }
