@@ -6,10 +6,14 @@
 - Jonathan Franche
 - Thomas Ainesworth
 
+
+The EBook WebScraper scrapes book data from top online websites and stores it into a MySQL database. A user can view the data, set scrape intervals, and compare book prices through the GUI.
+
+
 **Below are the requirements to run the program on your Java IDE:**
 
 The "/resources" folder must be added to the Java Build Path.
-config.properties file in the resources folder contains four variables that must be set to the MySQL database
+Create a config.properties file in the resources folder that contains four variables that must be set to the MySQL database
 information you are using.
 
 For example:
