@@ -9,6 +9,8 @@
 
 The EBook WebScraper scrapes book data from top online websites and stores it into a MySQL database. A user can view the data, set scrape intervals, and compare book prices through the GUI.
 
+![screenshot1](https://github.com/TeamSkyNetNU/EBookWebScraper/blob/main/Screenshots/Screen%20Shot%202021-09-21%20at%204.58.20%20PM.png?raw=true)
+![screenshot2](https://github.com/TeamSkyNetNU/EBookWebScraper/blob/main/Screenshots/Screen%20Shot%202021-09-21%20at%204.58.40%20PM.png?raw=true)
 
 **Below are the requirements to run the program on your Java IDE:**
 
